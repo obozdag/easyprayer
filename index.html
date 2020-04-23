@@ -75,7 +75,10 @@
 	<div class="container">
 		<h4 id="header">Namaz Vakitleri</h4>
 		<div id="prayer_times">
-			<h4 id="prayer_place"><span id="prayer_city"></span> <span id="prayer_country"></span></h4>
+			<h4 id="prayer_place">
+				<span id="prayer_city"></span>
+				<span id="prayer_country"></span>
+			</h4>
 			<table id="prayer_table">
 			</table>
 		</div>
@@ -97,8 +100,15 @@
 	let latitude = 50.840156;
 	let longitude = 9.102757;
 
-	document.getElementById('prayer_city').innerHTML = 'Neustadt'
-	document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
+	// document.getElementById('prayer_city').innerHTML = 'Neustadt'
+	// document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
+
+	getPosition().then(position=>{
+		lat = position.coords.latitude
+		lon = position.coords.longitude
+		showTimes(lat, lon)
+		showPosition(lat, lon)
+	})
 
 	function getPosition(options)
 	{
@@ -108,9 +118,15 @@
 		})
 	}
 
-	function showTimes(position)
+	function showPosition(latitude, longitude)
 	{
-		var coordinates         = new adhan.Coordinates(position.coords.latitude, position.coords.longitude);
+		document.getElementById('prayer_city').innerHTML = 'Enlem: ' + latitude.toFixed(4)
+		document.getElementById('prayer_country').innerHTML = 'Boylam: ' + longitude.toFixed(4)
+	}
+
+	function showTimes(latitude, longitude)
+	{
+		var coordinates         = new adhan.Coordinates(latitude, longitude);
 		var params              = adhan.CalculationMethod.MuslimWorldLeague();
 		params.madhab           = adhan.Madhab.Shafi;
 		params.highLatitudeRule = adhan.HighLatitudeRule.SeventhOfTheNight;
@@ -123,7 +139,6 @@
 		for(i=0; i<7; i++)
 		{
 			date.setDate(today.getDate() + i);
-console.log(date);
 			var prayerTimes   = new adhan.PrayerTimes(coordinates, date, params);
 			var formattedTime = adhan.Date.formattedTime;
 			month_name = (translations['tr']['months'][date.getMonth()])
@@ -185,9 +200,6 @@ console.log(date);
 			trElement.appendChild(td);
 		}
 	}
-
-	getPosition().then(position=>showTimes(position))
-
 	</script>
 </body>
 </html>
