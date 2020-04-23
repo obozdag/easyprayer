@@ -60,6 +60,14 @@ i {
 	margin: 0 auto;
 	padding-top: var(--nth);
 }
+h4 {
+	margin: 1rem 0;
+	color: var(--set-color);
+	font-size: 1.4rem;
+}
+#prayer_country {
+	font-size: 1rem;
+}
 .arabic {
 	text-align: justify;
 	font-family: var(--set-font-family);
