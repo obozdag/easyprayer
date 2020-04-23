@@ -765,7 +765,7 @@
         return angle - (360 * Math.round(angle/360));
     }
 
-    function formattedTime(date, UTCOffset, style) {
+    function formattedTime(date, UTCOffset, style = '24h') {
         var offset = dateByAddingHours(date, UTCOffset);
         var hours, minutes;
         if (style == '24h') {
