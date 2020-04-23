@@ -59,14 +59,19 @@ i {
 	max-width: var(--max-width);
 	margin: 0 auto;
 	padding-top: var(--nth);
+	padding-left: 5px;
+	padding-right: 5px;
 }
-h4 {
+h4, h5{
 	margin: 1rem 0;
 	color: var(--set-color);
 	font-size: 1.4rem;
 }
-#prayer_country {
+h5 {
 	font-size: 1rem;
+}
+#prayer_country {
+	/*font-size: 1rem;*/
 }
 .arabic {
 	text-align: justify;
@@ -415,16 +420,17 @@ footer a {
 	color: black;
 }
 #prayer_table th {
-	padding: .75rem;
+	padding: 8px;
 	vertical-align: bottom;
 	border-top: 1px solid #dee2e6;
 	border-bottom: 2px solid #dee2e6;
-	text-align: left;
+	text-align: right;
 }
 #prayer_table td {
-	padding: .75rem;
+	padding: 8px;
 	vertical-align: top;
 	border-top: 1px solid #dee2e6;
+	text-align: right;
 }
 @media print {
 	.container {
