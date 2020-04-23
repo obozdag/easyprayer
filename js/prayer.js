@@ -4,9 +4,6 @@ window.onload = ()=>{
 	let closeNavLeftBtn     = document.getElementById('close_nav_left');
 	let closeNavRightBtn    = document.getElementById('close_nav_right');
 	let closePopupBtn       = document.getElementById('close_popup_btn');
-	let colorList           = document.getElementById('color_list');
-	let fontFamilyList      = document.getElementById('font_family_list');
-	let fontSizeList        = document.getElementById('font_size_list');
 	let navLeft             = document.getElementById('nav_left');
 	let navRight            = document.getElementById('nav_right');
 	let navTop              = document.getElementById('nav_top');
@@ -19,15 +16,11 @@ window.onload = ()=>{
 	let leftResetBtn        = document.getElementById('left_reset_btn');
 	let rightResetBtn       = document.getElementById('right_reset_btn');
 	let topBtn              = document.getElementById('top_btn');
+	let countryList         = document.getElementById('country_list');
 
 	// Labels
-	let bgColorListLabel    = document.getElementById('bg_color_list_label');
-	let colorListLabel      = document.getElementById('color_list_label');
-	let fontFamilyListLabel = document.getElementById('font_family_list_label');
-	let fontSizeListLabel   = document.getElementById('font_size_list_label');
-	let languageListLabel   = document.getElementById('language_list_label');
-	let pageInputLabel      = document.getElementById('page_input_label');
-	let suraShortcutsLabel  = document.getElementById('sura_shortcuts_label');
+	let countryListLabel   = document.getElementById('country_list_label');
+	let cityListLabel      = document.getElementById('city_list_label');
 
 
 	// Set current language first
@@ -47,7 +40,6 @@ window.onload = ()=>{
 		if (defaultLanguage != 'tr')
 		{
 			var currentLanguage = 'tr';
-			replaceBookmarksAndInfos(defaultLanguage);
 		}
 
 		var currentLanguage = defaultLanguage;
@@ -63,29 +55,9 @@ window.onload = ()=>{
 	function installEventListeners()
 	{
 		// Language list
-		languageList.addEventListener('change', (e)=>{
-			setLanguage(languageList.value);
-		});
-
-		// Font family List
-		fontFamilyList.addEventListener('change', ()=>{
-			setFontFamily(fontFamilyList.value);
-		});
-
-		// Font size list
-		fontSizeList.addEventListener('change', (e)=>{
-			setFontSize(fontSizeList.value);
-		});
-
-		// Color list
-		colorList.addEventListener('change', (e)=>{
-			setColor(colorList.value);
-		});
-
-		// Background color list
-		bgColorList.addEventListener('change', (e)=>{
-			setBgColor(bgColorList.value);
-		});
+		// languageList.addEventListener('change', (e)=>{
+		// 	setLanguage(languageList.value);
+		// });
 
 		// Reset settings button
 		leftResetBtn.addEventListener('click', (e)=>{
@@ -93,11 +65,8 @@ window.onload = ()=>{
 		});
 
 		// Page no input
-		pageNo.addEventListener('keyup', function(e){if (e.keyCode == 13) pageToTop()});
-		gotoPageBtn.addEventListener('click', pageToTop);
-
-		// Clean bookmark
-		bookmarkIcon.addEventListener('click', removeBookmark);
+		// pageNo.addEventListener('keyup', function(e){if (e.keyCode == 13) pageToTop()});
+		// gotoPageBtn.addEventListener('click', pageToTop);
 
 		// Program info
 		programInfoPopup.addEventListener('click', closeInfoPopup);
@@ -121,15 +90,6 @@ window.onload = ()=>{
 
 	function restoreSettings()
 	{
-		// Restore bookmark
-		if (localStorage.getItem('bookmarkTarget'))
-		{
-			bookmarkTarget = localStorage.getItem('bookmarkTarget');
-			bookmarkLabel  = localStorage.getItem('bookmarkLabel');
-			setBookmark(bookmarkTarget, bookmarkLabel);
-			gotoBookmark(bookmarkTarget);
-		}
-
 		// Restore language
 		if (localStorage.getItem('language'))
 		{
@@ -137,95 +97,26 @@ window.onload = ()=>{
 			languageList.value = language;
 			setLanguage(language);
 		}
-
-		// Restore font family
-		if (localStorage.getItem('fontFamily'))
-		{
-			fontFamily = localStorage.getItem('fontFamily');
-			fontFamilyList.value = fontFamily;
-			setFontFamily(fontFamily);
-		}
-
-		// Restore font size
-		if (localStorage.getItem('fontSize'))
-		{
-			fontSize = localStorage.getItem('fontSize');
-			fontSizeList.value = fontSize;
-			setFontSize(fontSize);
-		}
-
-		// Restore color
-		if (localStorage.getItem('color'))
-		{
-			color = localStorage.getItem('color');
-			colorList.value = color;
-			setColor(color);
-		}
-
-		// Restore background color
-		if (localStorage.getItem('bgColor'))
-		{
-			bgColor = localStorage.getItem('bgColor');
-			bgColorList.value = bgColor;
-			setBgColor(bgColor);
-		}
 	}
 
 	function setLanguage(language)
 	{
 		setLabels(language);
-		replaceBookmarksAndInfos(language);
 		currentLanguage = language;
 		localStorage.setItem('language', language);
 		closeNavs();
 	}
 
-	function replaceBookmarksAndInfos(language)
-	{
-		for (var i = 0; i < juzAnchors.length; i++) {
-			juzAnchors[i].textContent = juzAnchors[i].textContent.replace(translations[currentLanguage]['juz_anchor_label'], translations[language]['juz_anchor_label']);
-		}
-
-		for (var i = 0; i < pageAnchors.length; i++) {
-			pageAnchors[i].textContent = pageAnchors[i].textContent.replace(translations[currentLanguage]['page_anchor_label'], translations[language]['page_anchor_label']);
-		}
-
-		for (var i = 0; i < pageInfos.length; i++) {
-			pageInfos[i].textContent = pageInfos[i].textContent.replace(translations[currentLanguage]['page_info_page'], translations[language]['page_info_page']);
-			pageInfos[i].textContent = pageInfos[i].textContent.replace(translations[currentLanguage]['page_info_juz'], translations[language]['page_info_juz']);
-		}
-
-		let bookmark = document.getElementById('bookmark');
-		if (bookmark)
-		{
-			bookmark.textContent = bookmark.textContent.replace(translations[currentLanguage]['juz_anchor_label'], translations[language]['juz_anchor_label']);
-			bookmark.textContent = bookmark.textContent.replace(translations[currentLanguage]['page_anchor_label'], translations[language]['page_anchor_label']);
-		}
-	}
-
 	function setLabels(language)
 	{
-		suraListLabel.textContent       = translations[language][suraListLabel.id];
-		suraShortcutsLabel.textContent  = translations[language][suraShortcutsLabel.id];
-		juzListLabel.textContent        = translations[language][juzListLabel.id];
-		pageInputLabel.textContent      = translations[language][pageInputLabel.id];
-		fontFamilyListLabel.textContent = translations[language][fontFamilyListLabel.id];
-		fontSizeListLabel.textContent   = translations[language][fontSizeListLabel.id];
-		colorListLabel.textContent      = translations[language][colorListLabel.id];
-		bgColorListLabel.textContent    = translations[language][bgColorListLabel.id];
-		languageListLabel.textContent   = translations[language][languageListLabel.id];
-		gotoPageBtn.textContent         = translations[language][gotoPageBtn.id];
+		countryListLabel.textContent   = translations[language][countryListLabel.id];
+		cityListLabel.textContent   = translations[language][cityListLabel.id];
 		leftResetBtn.textContent            = translations[language][leftResetBtn.id];
 	}
 
 	function fillSelects()
 	{
-		createOptions(fontFamilyList, fontFamilies, defaultFontFamily);
-		createOptions(fontSizeList, fontSizes, defaultFontSize);
-		createOptions(colorList, colors, defaultColor);
-		createOptions(bgColorList, bgColors, defaultBgColor);
-		createOptions(languageList, languages, defaultLanguage);
-		createOptions(juzList, ajza, null);
+		// createOptions(languageList, languages, defaultLanguage);
 	}
 
 	function createOptions(selectElement, options, defaultOption)
@@ -354,6 +245,7 @@ window.onload = ()=>{
 
 	function openNavLeft()
 	{
+		console.log('nav left clicked')
 		navLeft.classList.toggle('open');
 		navRight.classList.remove('open');
 		programInfoPopup.classList.remove('open');
