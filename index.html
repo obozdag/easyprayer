@@ -73,83 +73,120 @@
 		</dl>
 	</nav>
 	<div class="container">
-		<h4>Easy Prayer</h4>
+		<h4 id="header">Namaz Vakitleri</h4>
 		<div id="prayer_times">
-			<h4 id="prayer_place"></h4>
-			<h4 id="prayer_date"></h4>
+			<h4 id="prayer_place"><span id="prayer_city"></span> <span id="prayer_country"></span></h4>
 			<table id="prayer_table">
-				<tr id="prayer_labels">
-					<th id="date_label">Tarih</th>
-					<th id="fajr_label">İmsak</th>
-					<th id="sunrise_label">Güneş</th>
-					<th id="dhuhr_label">Öğle</th>
-					<th id="asr_label">İkindi</th>
-					<th id="maghrib_label">Akşam</th>
-					<th id="isha_label">Yatsı</th>
-				</tr>
-				<tr>
-					<td id="date_1"></td>
-					<td id="fajr_1"></td>
-					<td id="sunrise_1"></td>
-					<td id="dhuhr_1"></td>
-					<td id="asr_1"></td>
-					<td id="maghrib_1"></td>
-					<td id="isha_1"></td>
-				</tr>
 			</table>
+		</div>
+	</div>
+	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="rb logo" title="Easy Prayer">a</i> Easy Prayer</a></footer>
+	<div class="overlay" id="program_info_popup">
+		<div class="popup">
+			<i id="close_popup_btn" class="rb close_btn right">c</i>
+			<div id="program_info_content">
+			</div>
 		</div>
 	</div>
 	<script src="js/swipe.js"></script>
 	<script src="js/lang.js"></script>
 	<script src="js/settings.js"></script>
-	<!-- <script src="js/prayer.js"></script> -->
+	<script src="js/prayer.js"></script>
 	<!-- <script src="app.js"></script> -->
 	<script type="text/javascript">
-	let latitude = 51.4332367;
-	let longitude = 7.6615938;
-	//to get current position
-	// navigator.geolocation.getCurrentPosition((position)=>{
-	// 	latitude  = position.coords.latitude.toFixed(2)
-	// 	longitude = position.coords.longitude.toFixed(2)
-	// })
+	let latitude = 50.840156;
+	let longitude = 9.102757;
 
-	function prayerName(prayer) {
-		if (prayer == adhan.Prayer.Fajr) {
-			return "İmsak";
-		} else if (prayer == adhan.Prayer.Sunrise) {
-			return "Güneş";
-		} else if (prayer == adhan.Prayer.Dhuhr) {
-			return "Öğle";
-		} else if (prayer == adhan.Prayer.Asr) {
-			return "İkindi";
-		} else if (prayer == adhan.Prayer.Maghrib) {
-			return "Akşam";
-		} else if (prayer == adhan.Prayer.Isha) {
-			return "Yatsı";
-		} else if (prayer == adhan.Prayer.None) {
-			return "None";
+	document.getElementById('prayer_city').innerHTML = 'Neustadt'
+	document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
+
+	function getPosition(options)
+	{
+		//to get current position
+		return new Promise(function(resolve, reject){
+			navigator.geolocation.getCurrentPosition(resolve, reject, options)
+		})
+	}
+
+	function showTimes(position)
+	{
+		var coordinates         = new adhan.Coordinates(position.coords.latitude, position.coords.longitude);
+		var params              = adhan.CalculationMethod.MuslimWorldLeague();
+		params.madhab           = adhan.Madhab.Shafi;
+		params.highLatitudeRule = adhan.HighLatitudeRule.SeventhOfTheNight;
+
+		fillTableHeaders();
+
+		var date  = new Date();
+		var today = new Date();
+
+		for(i=0; i<7; i++)
+		{
+			date.setDate(today.getDate() + i);
+console.log(date);
+			var prayerTimes   = new adhan.PrayerTimes(coordinates, date, params);
+			var formattedTime = adhan.Date.formattedTime;
+			month_name = (translations['tr']['months'][date.getMonth()])
+			day = date.getDate() + ' ' + month_name;
+
+			prayTimes = {
+				'fajr'   : formattedTime(prayerTimes.fajr, +2),
+				'sunrise': formattedTime(prayerTimes.sunrise, +2),
+				'dhuhr'  : formattedTime(prayerTimes.dhuhr, +2),
+				'asr'    : formattedTime(prayerTimes.asr, +2),
+				'maghrib': formattedTime(prayerTimes.maghrib, +2),
+				'isha'   : formattedTime(prayerTimes.isha, +2),
+			}
+
+			fillTableCells(day, prayTimes);
+
 		}
 	}
 
-	var date = new Date();
-	var coordinates = new adhan.Coordinates(latitude, longitude);
-	var params = adhan.CalculationMethod.MuslimWorldLeague();
-	params.madhab = adhan.Madhab.Hanafi;
-	var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
-	var formattedTime = adhan.Date.formattedTime;
+	function fillTableHeaders()
+	{
+		prayerNames = translations['tr']['prayer_names']
+		headers = document.createElement('tr');
+			th = document.createElement('th');
+			th.textContent = translations['tr']['date'];
+			headers.appendChild(th);
+		createTableHeaders(headers, prayerNames);
+		prayer_table = document.getElementById('prayer_table')
+		prayer_table.appendChild(headers)
+	}
 
-	document.getElementById('prayer_place').innerHTML = 'Neustadt/Marburg/Germany'
-	document.getElementById('prayer_date').innerHTML = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
-	document.getElementById('date_1').innerHTML = date.getDate() + '-' + (date.getMonth() + 1)
-	document.getElementById('fajr_1').innerHTML = formattedTime(prayerTimes.fajr, +2, '24h')
-	document.getElementById('sunrise_1').innerHTML = formattedTime(prayerTimes.sunrise, +2, '24h')
-	document.getElementById('dhuhr_1').innerHTML = formattedTime(prayerTimes.dhuhr, +2, '24h')
-	document.getElementById('asr_1').innerHTML = formattedTime(prayerTimes.asr, +2, '24h')
-	document.getElementById('maghrib_1').innerHTML = formattedTime(prayerTimes.maghrib, +2, '24h')
-	document.getElementById('isha_1').innerHTML = formattedTime(prayerTimes.isha, +2, '24h')
+	function createTableHeaders(trElement, prayerNames)
+	{
+		for ([value, text] of Object.entries(prayerNames))
+		{
+			th = document.createElement('th');
+			th.textContent = text;
+			trElement.appendChild(th);
+		}
+	}
 
-	// timeTable += '\nCurrent Prayer: ' + prayerName(prayerTimes.currentPrayer()) + '\n'
+	function fillTableCells(day, prayerTimes)
+	{
+		timeRow = document.createElement('tr');
+			td = document.createElement('td');
+			td.textContent = day;
+			timeRow.appendChild(td);
+		createTableCells(timeRow, prayerTimes);
+		prayer_table = document.getElementById('prayer_table')
+		prayer_table.appendChild(timeRow)
+	}
 
+	function createTableCells(trElement, prayerTimes)
+	{
+		for ([value, text] of Object.entries(prayerTimes))
+		{
+			td = document.createElement('td');
+			td.textContent = text;
+			trElement.appendChild(td);
+		}
+	}
+
+	getPosition().then(position=>showTimes(position))
 
 	</script>
 </body>
