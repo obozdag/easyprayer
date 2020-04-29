@@ -79,6 +79,7 @@
 				Bulunduğunuz Yer: (
 				<small><span id="prayer_city"></span></small>
 				<small><span id="prayer_country"></span></small>
+				<small><span id="prayer_map"></span></small>
 				)
 			</h5>
 			<table id="prayer_table">
@@ -120,10 +121,14 @@
 		})
 	}
 
-	function showPosition(latitude, longitude)
+	function showPosition(lat, lon)
 	{
-		document.getElementById('prayer_city').innerHTML = 'Enlem: ' + latitude.toFixed(4)
-		document.getElementById('prayer_country').innerHTML = 'Boylam: ' + longitude.toFixed(4)
+		zoom = 10
+		mapLink = `https://www.google.com/maps/@${lat},${lon},${zoom}z`
+		document.getElementById('prayer_city').innerHTML = 'Enlem: ' + lat.toFixed(4)
+		document.getElementById('prayer_country').innerHTML = 'Boylam: ' + lon.toFixed(4)
+		document.getElementById('prayer_map').innerHTML = `<a href="${mapLink}">Map</a>`
+
 	}
 
 	function showTimes(latitude, longitude)
@@ -135,11 +140,11 @@
 
 		fillTableHeaders();
 
-		var date  = new Date();
 		var today = new Date();
 
 		for(i=0; i<7; i++)
 		{
+			var date  = new Date();
 			date.setDate(today.getDate() + i);
 			var prayerTimes   = new adhan.PrayerTimes(coordinates, date, params);
 			var formattedTime = adhan.Date.formattedTime;
@@ -156,7 +161,6 @@
 			}
 
 			fillTableCells(day, prayTimes);
-
 		}
 	}
 
@@ -165,7 +169,8 @@
 		prayerNames = translations['tr']['prayer_names']
 		headers = document.createElement('tr');
 			th = document.createElement('th');
-			th.textContent = translations['tr']['date'];
+			// th.textContent = translations['tr']['date'];
+			th.textContent = '';
 			headers.appendChild(th);
 		createTableHeaders(headers, prayerNames);
 		prayer_table = document.getElementById('prayer_table')
