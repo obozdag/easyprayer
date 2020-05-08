@@ -36,8 +36,7 @@
 	--nsbc: gray; /* nav side background color */
 	--nth: 42px; /* nav top height */
 	--set-bg-color: cornsilk; /* arabic background color */
-	--set-color: brown; /* color to change in settings */ /* SET IN JS */
-	--set-font-family: 'Hamdullah'; /* arabic font family */ /* SET IN JS */
+	--set-color: steelblue; /* color to change in settings */ /* SET IN JS */
 	--set-font-size: 28px; /* arabic font size */ /* SET IN JS */
 }
 * {
@@ -58,12 +57,17 @@ i {
 }
 .btn {
 	padding: 2px 6px;
-	color: white;
-	border: 1px solid rgba(255, 255, 255, 0.8);
+	background-color: transparent;
+	border: 1px solid transparent;
 	border-radius: var(--brs);
-	line-height: 1;
+	color: white;
+	font-size: 1rem;
+	text-decoration: none;
 	text-align: center;
+	vertical-align: middle;
 	cursor: pointer;
+	user-select: none;
+	outline: none;
 }
 .btn:hover {
 	color: var(--set-color);
@@ -89,17 +93,6 @@ h5 {
 #prayer_country {
 	/*font-size: 1rem;*/
 }
-.arabic {
-	text-align: justify;
-	font-family: var(--set-font-family);
-	font-weight: 400;
-	font-size: var(--set-font-size);
-	page-break-inside: avoid;
-	background-color: var(--set-bg-color);
-	color: var(--ac);
-	direction: rtl;
-	padding: var(--nth) 5px;
-}
 #nav_top {
 	position: fixed;
 	display: flex;
@@ -121,20 +114,9 @@ h5 {
 	cursor: pointer;
 	z-index: 100;
 }
-.sajdah {
-	color: var(--set-color);
-}
-.sajdah:after {
-	content: 'k';
-	display: inline-block;
-	font-family: 'rb-quran';
-	color: var(--set-color);
-	margin-right: 5px;
-}
-.basmala {
-	font-family: var(--set-font-family);
-	font-size: var(--set-font-size);
-	color: var(--ac);
+.date_btn {
+	border-color: white;
+	line-height: 1;
 }
 #nav_left, #nav_right {
 	position: fixed;
@@ -476,6 +458,17 @@ footer a {
 	vertical-align: top;
 	border-top: 1px solid #dee2e6;
 	text-align: right;
+}
+.date_cell {
+	width: 100px;
+}
+.day {
+	color: steelblue;
+	font-size: smaller;
+}
+.location_info {
+	font-size: smaller;
+	color: gray;
 }
 @media print {
 	.container {
