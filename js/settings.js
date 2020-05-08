@@ -1,9 +1,11 @@
-defaultBgColor    = 'cornsilk';
-defaultColor      = 'brown';
-defaultFontSize   = '28px';
-defaultAsr        = 'safi';
-defaultMethod     = 'mwl';
-defaultPeriod     = 'week';
+defaultBgColor    = 'cornsilk'
+defaultColor      = 'brown'
+defaultFontSize   = '28px'
+defaultAsr        = 'safi'
+defaultMethod     = 'mwl'
+defaultPeriod     = 'week'
+locationPrecision = 7
+mapZoom           = 15
 
 periods = {
 	'week'  : 7,

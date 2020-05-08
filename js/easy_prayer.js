@@ -21,6 +21,8 @@ window.onload = ()=>{
 	let methodList             = document.getElementById('method_list');
 	let languageList           = document.getElementById('language_list');
 	let settingsHeader         = document.getElementById('settings_header');
+	let header                 = document.getElementById('header');
+	let locationHeader         = document.getElementById('location_header');
 	let locationSettingsHeader = document.getElementById('location_settings_header');
 	let latInput               = document.getElementById('lat');
 	let lonInput               = document.getElementById('lon');
@@ -33,6 +35,9 @@ window.onload = ()=>{
 	let methodListLabel        = document.getElementById('method_list_label');
 	let latInputLabel          = document.getElementById('lat_input_label');
 	let lonInputLabel          = document.getElementById('lon_input_label');
+	let locationLatitudeLabel  = document.getElementById('location_latitude_label');
+	let locationLongitudeLabel = document.getElementById('location_longitude_label');
+	let locationMapLabel       = document.getElementById('location_map_label');
 
 	var currentLanguage;
 	let currentPeriod = periods[defaultPeriod];
@@ -56,8 +61,8 @@ window.onload = ()=>{
 		latitude  = position.coords.latitude
 		longitude = position.coords.longitude
 		setLocationInputs()
+		showPosition(latitude, longitude)
 		showTimes()
-		showPosition(lat, lon)
 	})
 
 	function setCurrentLanguage()
@@ -89,6 +94,7 @@ window.onload = ()=>{
 		// Language list
 		languageList.addEventListener('change', (e)=>{
 			setLanguage(languageList.value)
+			showTimes()
 		});
 
 		// Reset settings button
@@ -141,7 +147,7 @@ window.onload = ()=>{
 		{
 			language = localStorage.getItem('language');
 			languageList.value = language;
-			setLanguage(language);
+			setLanguage(language)
 		}
 	}
 
@@ -164,8 +170,13 @@ window.onload = ()=>{
 		methodListLabel.textContent        = translations[language][methodListLabel.id];
 		latInputLabel.textContent          = translations[language][latInputLabel.id];
 		lonInputLabel.textContent          = translations[language][lonInputLabel.id];
+		locationLatitudeLabel.textContent  = translations[language][locationLatitudeLabel.id];
+		locationLongitudeLabel.textContent = translations[language][locationLongitudeLabel.id];
 		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
 		settingsHeader.textContent         = translations[language][settingsHeader.id];
+		header.textContent                 = translations[language][header.id];
+		locationMapLabel.textContent       = translations[language][location_map_label.id];
+		locationHeader.textContent         = translations[language][location_header.id];
 		locationSettingsHeader.textContent = translations[language][locationSettingsHeader.id];
 	}
 
@@ -305,14 +316,14 @@ window.onload = ()=>{
 		})
 	}
 
-	function showPosition()
+	function showPosition(lat, lon)
 	{
-		zoom = 15
-		mapLink = `https://www.google.com/maps/@${lat},${lon},${zoom}z`
-		document.getElementById('prayer_city').innerHTML = 'Enlem: ' + latitude.toFixed(4)
-		document.getElementById('prayer_country').innerHTML = 'Boylam: ' + longitude.toFixed(4)
-		document.getElementById('prayer_map').innerHTML = `<a href="${mapLink}">Map</a>`
-
+		mapHref = `https://www.google.com/maps/@${lat},${lon},${mapZoom}z`
+		document.getElementById('location_latitude_label').textContent = translations[currentLanguage]['latitude']
+		document.getElementById('location_latitude').textContent = latitude.toFixed(locationPrecision)
+		document.getElementById('location_longitude_label').textContent = translations[currentLanguage]['longitude']
+		document.getElementById('location_longitude').textContent = longitude.toFixed(locationPrecision)
+		document.getElementById('location_map_link').href = mapHref
 	}
 
 	function clearTimes()
@@ -339,16 +350,17 @@ window.onload = ()=>{
 			date.setDate(today.getDate() + i);
 			var prayerTimes   = new adhan.PrayerTimes(coordinates, date, params);
 			var formattedTime = adhan.Date.formattedTime;
-			month_name = (translations['tr']['months'][date.getMonth()])
-			day = date.getDate() + ' ' + month_name;
-
+			month_name = (translations[currentLanguage]['months'][date.getMonth()])
+			day_name = (translations[currentLanguage]['days'][date.getDay()])
+			day = date.getDate() + ' ' + month_name + '<br>' + '<span class="day">' + day_name + '</span>'
+			offset = date.toString().match(/([-\+][0-9]+)\s/)[1].substring(0, 3)
 			prayTimes = {
-				'fajr'   : formattedTime(prayerTimes.fajr, +2),
-				'sunrise': formattedTime(prayerTimes.sunrise, +2),
-				'dhuhr'  : formattedTime(prayerTimes.dhuhr, +2),
-				'asr'    : formattedTime(prayerTimes.asr, +2),
-				'maghrib': formattedTime(prayerTimes.maghrib, +2),
-				'isha'   : formattedTime(prayerTimes.isha, +2),
+				'fajr'   : formattedTime(prayerTimes.fajr, offset),
+				'sunrise': formattedTime(prayerTimes.sunrise, offset),
+				'dhuhr'  : formattedTime(prayerTimes.dhuhr, offset),
+				'asr'    : formattedTime(prayerTimes.asr, offset),
+				'maghrib': formattedTime(prayerTimes.maghrib, offset),
+				'isha'   : formattedTime(prayerTimes.isha, offset),
 			}
 
 			fillTableCells(day, prayTimes);
@@ -357,7 +369,7 @@ window.onload = ()=>{
 
 	function fillTableHeaders()
 	{
-		prayerNames = translations['tr']['prayer_names']
+		prayerNames = translations[currentLanguage]['prayer_names']
 		headers = document.createElement('tr');
 			th = document.createElement('th');
 			// th.textContent = translations['tr']['date'];
@@ -383,7 +395,8 @@ window.onload = ()=>{
 	{
 		timeRow = document.createElement('tr');
 			td = document.createElement('td');
-			td.textContent = day;
+			td.classList = 'date_cell'
+			td.innerHTML = day;
 			timeRow.appendChild(td);
 		createTableCells(timeRow, prayerTimes);
 		prayerTable.appendChild(timeRow)
@@ -401,7 +414,7 @@ window.onload = ()=>{
 
 	function setLocationInputs()
 	{
-		latInput.value = latitude
-		lonInput.value = longitude
+		latInput.value = latitude.toFixed(locationPrecision)
+		lonInput.value = longitude.toFixed(locationPrecision)
 	}
 }
