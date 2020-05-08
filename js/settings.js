@@ -1,14 +1,43 @@
 defaultBgColor    = 'cornsilk';
 defaultColor      = 'brown';
-defaultFontFamily = 'Hamdullah';
 defaultFontSize   = '28px';
+defaultAsr        = 'safi';
+defaultMethod     = 'mwl';
+defaultPeriod     = 'week';
+
+periods = {
+	'week'  : 7,
+	'month' : 30,
+}
 
 languages = {
 	'tr' : 'Türkçe',
 	'en' : 'English',
 };
 
-ajza = {}; for(i=1; i<=30;i++){ajza[i] = i;};
+asr = {
+	'hanafi' : 'Hanefi',
+	'safi'   : 'Şafi',
+};
+
+methods = {
+	'mwl'   : 'Muslim World League',
+	'isna'  : 'Islamic Society of North America',
+	'egypt' : 'Egyptian General Authority of Survey',
+	'makkah' : 'Umm al-Qura University, Makkah',
+	'karachi' : 'University of Islamic Sciences, Karachi',
+	'tehran' : 'Institute of Geophysics, University of Tehran',
+	'shia' : 'Shia Ithna Ashari, Leva Research Institute, Qum',
+};
+
+// Muslim World League	18	17
+// Islamic Society of North America (ISNA)	15	15
+// Egyptian General Authority of Survey	19.5	17.5
+// Umm al-Qura University, Makkah	18.5	90 min after Maghrib
+// 120 min during Ramadan
+// University of Islamic Sciences, Karachi	18	18
+// Institute of Geophysics, University of Tehran	17.7	14*
+// Shia Ithna Ashari, Leva Research Institute, Qum	16	14
 
 fontFamilies  = {
 	'Hamdullah'  : 'Hamdullah',
