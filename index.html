@@ -16,8 +16,8 @@
 	<nav id="nav_top">
 		<i id="open_nav_left" class="nav_top_btn rb" title="Nav Left">q</i>
 		<i id="program_info_btn" class="nav_top_btn rb" title="Program Info">a</i>
-		<i id="month_btn" class="btn" title="Month">30</i>
-		<i id="week_btn" class="btn" title="Week">7</i>
+		<i id="month_btn" class="date_btn btn" title="Month">30</i>
+		<i id="week_btn" class="date_btn btn" title="Week">7</i>
 		<span><i class="nav_top_btn rb" id="bookmark_icon" title="Bookmark">b</i><span id="bookmark_container"></span></span>
 		<i id="open_nav_right" class="nav_top_btn rb" title="Nav Right">s</i>
 	</nav>
@@ -66,15 +66,22 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h4 id="header">Namaz Vakitleri</h4>
+		<h4 id="header"></h4>
 		<div id="prayer_times">
-			<h5 id="prayer_place">
-				Bulunduğunuz Yer: (
-				<small><span id="prayer_city"></span></small>
-				<small><span id="prayer_country"></span></small>
-				<small><span id="prayer_map"></span></small>
-				)
-			</h5>
+			<div id="prayer_place">
+				<h5>
+					<span id="location_header"></span>
+					<span class="location_info">
+						<span id="location_latitude_label"></span> <span id="location_latitude"></span>
+						<span id="location_longitude_label"></span> <span id="location_longitude"></span>
+						<a id="location_map_link" href=""><span id="location_map_label"></span></a>
+					</span>
+				</h5>
+				<h5>
+					<small><span id="location_city"></span></small>
+					<small><span id="location_country"></span></small>
+				</h5>
+			</div>
 			<table id="prayer_table">
 			</table>
 		</div>
