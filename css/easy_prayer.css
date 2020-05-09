@@ -9,16 +9,6 @@
 	font-family:"rb-icons";
 	src:url(fonts/rb_icons.ttf);
 }
-.rbm {
-	font-family: 'rb-marb' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	font-size: 1.2rem;
-}
 .rb {
 	font-family: 'rb-icons' !important;
 	speak: none;
@@ -54,6 +44,10 @@ ul {
 }
 i {
 	font-style: normal;
+}
+a {
+	text-decoration: none;
+	color: var(--set-color);
 }
 .btn {
 	padding: 2px 6px;
@@ -459,8 +453,9 @@ footer a {
 	border-top: 1px solid #dee2e6;
 	text-align: right;
 }
-.date_cell {
-	width: 100px;
+#prayer_table .date_cell {
+	max-width: 100px;
+	text-align: left;
 }
 .day {
 	color: steelblue;
