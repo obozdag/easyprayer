@@ -1,4 +1,4 @@
-var cacheName = 'EasyPrayer v.8';
+var cacheName = 'EasyPrayer v.81';
 var staticContentToCache = [
 	'index.html',
 	'favicon.ico',
@@ -15,7 +15,7 @@ var staticContentToCache = [
 	'css/icons/easy_prayer_192x192.png',
 	'css/icons/easy_prayer_384x384.png',
 	'css/icons/easy_prayer_512x512.png',
-	'css/icons/easy_prayer_loading.gif',
+	'css/icons/loading.gif',
 	'app.js',
 	'js/swipe.js',
 	'js/lang.js',
