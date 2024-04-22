@@ -1,4 +1,4 @@
-var cacheName = 'EasyPrayer v.81';
+var cacheName = 'EasyPrayer v.82';
 var staticContentToCache = [
 	'index.html',
 	'favicon.ico',
