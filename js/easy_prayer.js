@@ -51,8 +51,8 @@ window.onload = ()=>{
 	installEventListeners();
 	restoreSettings();
 
-	let latitude = 50.840156;
-	let longitude = 9.102757;
+	let latitude = 50.4862592;
+	let longitude = 8.2737342;
 
 	// document.getElementById('prayer_city').innerHTML = 'Neustadt'
 	// document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
@@ -334,9 +334,8 @@ window.onload = ()=>{
 
 	function showTimes()
 	{
-		clearTimes()
+		clearTimes();
 		fillTableHeaders();
-
 		var coordinates         = new adhan.Coordinates(latitude, longitude);
 		var params              = adhan.CalculationMethod.MuslimWorldLeague();
 		params.madhab           = adhan.Madhab.Shafi;
@@ -349,19 +348,27 @@ window.onload = ()=>{
 			var date  = new Date();
 			date.setDate(today.getDate() + i);
 			var prayerTimes   = new adhan.PrayerTimes(coordinates, date, params);
-			var formattedTime = adhan.Date.formattedTime;
+			// var formattedTime = adhan.Date.formattedTime;
 			month_name = (translations[currentLanguage]['months'][date.getMonth()])
 			day_name = (translations[currentLanguage]['days'][date.getDay()])
 			day = date.getDate() + ' ' + month_name + '<br>' + '<span class="day">' + day_name + '</span>'
 			offset = date.toString().match(/([-\+][0-9]+)\s/)[1].substring(0, 3)
 			prayTimes = {
-				'fajr'   : formattedTime(prayerTimes.fajr, offset),
-				'sunrise': formattedTime(prayerTimes.sunrise, offset),
-				'dhuhr'  : formattedTime(prayerTimes.dhuhr, offset),
-				'asr'    : formattedTime(prayerTimes.asr, offset),
-				'maghrib': formattedTime(prayerTimes.maghrib, offset),
-				'isha'   : formattedTime(prayerTimes.isha, offset),
+				'fajr'   : moment(prayerTimes.fajr).tz('Europe/Berlin').format('HH:mm'),
+				'sunrise': moment(prayerTimes.sunrise).tz('Europe/Berlin').format('HH:mm'),
+				'dhuhr'  : moment(prayerTimes.dhuhr).tz('Europe/Berlin').format('HH:mm'),
+				'asr'    : moment(prayerTimes.asr).tz('Europe/Berlin').format('HH:mm'),
+				'maghrib': moment(prayerTimes.maghrib).tz('Europe/Berlin').format('HH:mm'),
+				'isha'   : moment(prayerTimes.isha).tz('Europe/Berlin').format('HH:mm'),
 			}
+			// prayTimes = {
+			// 	'fajr'   : formattedTime(prayerTimes.fajr, offset),
+			// 	'sunrise': formattedTime(prayerTimes.sunrise, offset),
+			// 	'dhuhr'  : formattedTime(prayerTimes.dhuhr, offset),
+			// 	'asr'    : formattedTime(prayerTimes.asr, offset),
+			// 	'maghrib': formattedTime(prayerTimes.maghrib, offset),
+			// 	'isha'   : formattedTime(prayerTimes.isha, offset),
+			// }
 
 			fillTableCells(day, prayTimes);
 		}

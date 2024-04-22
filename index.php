@@ -7,22 +7,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar" content="steelblue">
 	<meta name="theme-color" content="steelblue">
+	<!-- <link rel="canonical" href="https://prayer.fklavye.net"> -->
 	<link rel="stylesheet" type="text/css" href="css/easy_prayer.css">
 	<link rel="apple-touch-icon" href="css/icons/easy_prayer_96x96.png">
-	<script src="js/adhan.js"></script>
+	<script src="js/adhan.umd.js"></script>
+	<script src="js/moment-with-locales.min.js"></script>
+	<script src="js/moment-timezone-with-data.js"></script>
 	<!-- <link rel="manifest" href="easy_prayer.json"> -->
 </head>
 <body>
 	<nav id="nav_top">
-		<i id="open_nav_left" class="nav_top_btn rb" title="Nav Left">o</i>
-		<i id="program_info_btn" class="nav_top_btn rb" title="Program Info">y</i>
-		<i id="month_btn" class="date_btn btn" title="Month">30</i>
-		<i id="week_btn" class="date_btn btn" title="Week">7</i>
-		<span><i class="nav_top_btn rb" id="bookmark_icon" title="Bookmark">b</i><span id="bookmark_container"></span></span>
-		<i id="open_nav_right" class="nav_top_btn rb" title="Nav Right">s</i>
+		<i id="open_nav_left" class="nav_top_btn rb-map-location-dot" title="Nav Left"></i>
+		<i id="program_info_btn" class="nav_top_btn rb-call-prayer-solid" title="Program Info"></i>
+		<i id="month_btn" class="nav_top_btn rb-monthly-calendar" title="Month"></i>
+		<i id="week_btn" class="nav_top_btn rb-weekly-calendar" title="Week"></i>
+		<span><i id="bookmark_icon" class="nav_top_btn rb-bookmark" title="Bookmark"></i><span id="bookmark_container"></span></span>
+		<i id="open_nav_right" class="nav_top_btn rb-slider" title="Nav Right"></i>
 	</nav>
 	<nav id="nav_left">
-		<i class="rb close_btn right" id="close_nav_left">c</i>
+		<i id="close_nav_left" class="close_btn right rb-circle-xmark"></i>
 		<h4 id="location_settings_header" class="settings_header"></h4>
 		<div class="settings">
 			<div class="row">
@@ -44,7 +47,7 @@
 		</div>
 	</nav>
 	<nav id="nav_right">
-		<i class="rb close_btn left" id="close_nav_right">c</i>
+		<i id="close_nav_right" class="close_btn left rb-circle-xmark"></i>
 		<div class="settings">
 			<h4 id="settings_header" class="settings_header"></h4>
 			<div class="row">
@@ -76,7 +79,7 @@
 						<span id="location_longitude_label"></span> <span id="location_longitude"></span>
 						<a id="location_map_link" href="">
 							<span id="location_map_label"></span>
-							<i class="rb"> w</i>
+							<i class="rb-globe"></i>
 						</a>
 					</span>
 				</h5>
@@ -89,11 +92,11 @@
 			</table>
 		</div>
 	</div>
-	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="rb logo" title="Easy Prayer">y</i> Easy Prayer</a></footer>
+	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="logo rb-call-prayer-solid" title="Easy Prayer"></i> Easy Prayer</a></footer>
 	<div class="overlay" id="program_info_popup">
 		<div class="popup">
-			<i id="close_popup_btn" class="rb close_btn right">c</i>
-			<h3><i class="rb logo">y</i> Easy Prayer v.8</h3>
+			<i id="close_popup_btn" class="close_btn right rb-circle-xmark"></i>
+			<h3><i class="logo rb-call-prayer-solid"></i> Easy Prayer v.8</h3>
 			<div id="program_info_content">
 			</div>
 		</div>
