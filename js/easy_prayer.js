@@ -329,7 +329,6 @@ window.onload = ()=>{
 	function clearTimes()
 	{
 		while(child = prayerTable.lastChild){prayerTable.removeChild(child)}
-
 	}
 
 	function showTimes()

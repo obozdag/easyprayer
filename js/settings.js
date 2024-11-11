@@ -41,11 +41,6 @@ methods = {
 // Institute of Geophysics, University of Tehran	17.7	14*
 // Shia Ithna Ashari, Leva Research Institute, Qum	16	14
 
-fontFamilies  = {
-	'Hamdullah'  : 'Hamdullah',
-	'Lateef'     : 'Lateef',
-};
-
 fontSizes = {
 	'16px' : '16',
 	'18px' : '18',
