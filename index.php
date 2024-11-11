@@ -73,10 +73,10 @@
 		<div id="prayer_times">
 			<div id="prayer_place">
 				<h5>
-					<span id="location_header"></span>
+					<span id="location_header"></span><br>
 					<span class="location_info">
-						<span id="location_latitude_label"></span> <span id="location_latitude"></span>
-						<span id="location_longitude_label"></span> <span id="location_longitude"></span>
+						<span id="location_latitude_label"></span>: <span id="location_latitude"></span>
+						<span id="location_longitude_label"></span>: <span id="location_longitude"></span>
 						<a id="location_map_link" href="" target="_blank">
 							<span id="location_map_label"></span>
 							<i class="rb-globe"></i>

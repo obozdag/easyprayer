@@ -20,7 +20,7 @@ translations = {
 		'header'                   : 'Namaz Vakitleri',
 		'location_latitude_label'  : 'Enlem',
 		'location_longitude_label' : 'Boylam',
-		'location_header'          : 'Bulunduğunuz Yer',
+		'location_header'          : 'Bulunduğunuz Yer:',
 		'location_settings_header' : 'Yer Ayarları',
 		'methods' : {
 			'mwl'     : 'Dünya Müslüman Birliği',
@@ -87,7 +87,7 @@ translations = {
 		'date'                     : 'Date',
 		'settings_header'          : 'Settings',
 		'header'                   : 'Prayer Times',
-		'location_header'          : 'Your Location',
+		'location_header'          : 'Your Location:',
 		'location_latitude_label'  : 'Latitude',
 		'location_longitude_label' : 'Longitude',
 		'location_settings_header' : 'Location Settings',
