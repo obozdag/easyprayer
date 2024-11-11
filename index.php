@@ -73,7 +73,7 @@
 		<div id="prayer_times">
 			<div id="prayer_place">
 				<h5>
-					<span id="location_header"></span><br>
+					<span id="location_header"></span>:<br>
 					<span class="location_info">
 						<span id="location_latitude_label"></span>: <span id="location_latitude"></span>
 						<span id="location_longitude_label"></span>: <span id="location_longitude"></span>
