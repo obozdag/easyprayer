@@ -353,6 +353,10 @@ h5 {
 	cursor: pointer;
 }
 footer {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -410,6 +414,9 @@ footer a {
 }
 #nav_loading {
 	display: none;
+}
+#prayer_times {
+	padding-bottom: 6rem;
 }
 #prayer_table {
 	border-collapse: collapse;

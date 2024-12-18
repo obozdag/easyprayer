@@ -7,13 +7,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-status-bar" content="steelblue">
 	<meta name="theme-color" content="steelblue">
-	<!-- <link rel="canonical" href="https://prayer.fklavye.net"> -->
+	<link rel="canonical" href="https://prayer.fklavye.net">
 	<link rel="stylesheet" type="text/css" href="css/easy_prayer.css">
 	<link rel="apple-touch-icon" href="css/icons/easy_prayer_96x96.png">
-	<script src="js/adhan.umd.js"></script>
+    <script src="js/adhan.umd.js"></script>
 	<script src="js/moment-with-locales.min.js"></script>
 	<script src="js/moment-timezone-with-data.js"></script>
-	<!-- <link rel="manifest" href="easy_prayer.json"> -->
+    <script src="js/swipe.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/setting.js"></script>
+    <script src="js/easyprayer.js"></script>
+    <script src="app.js"></script>
+
+	<link rel="manifest" href="easy_prayer.json">
 </head>
 <body>
 	<nav id="nav_top">
@@ -21,7 +27,7 @@
 		<i id="program_info_btn" class="nav_top_btn rb-call-prayer-solid" title="Program Info"></i>
 		<i id="month_btn" class="nav_top_btn rb-monthly-calendar" title="Month"></i>
 		<i id="week_btn" class="nav_top_btn rb-weekly-calendar" title="Week"></i>
-		<span><i id="bookmark_icon" class="nav_top_btn rb-bookmark" title="Bookmark"></i><span id="bookmark_container"></span></span>
+		<!-- <span><i id="bookmark_icon" class="nav_top_btn rb-bookmark" title="Bookmark"></i><span id="bookmark_container"></span></span> -->
 		<i id="open_nav_right" class="nav_top_btn rb-slider" title="Nav Right"></i>
 	</nav>
 	<nav id="nav_left">
@@ -55,8 +61,8 @@
 				<select id="method_list"></select>
 			</div>
 			<div class="row">
-				<label id="asr_list_label"></label>
-				<select id="asr_list"></select>
+				<label id="madhab_list_label"></label>
+				<select id="madhab_list"></select>
 			</div>
 			<div class="row">
 				<label id="language_list_label"></label>
@@ -75,8 +81,8 @@
 				<h5>
 					<span id="location_header"></span>:<br>
 					<span class="location_info">
-						<span id="location_latitude_label"></span>: <span id="location_latitude"></span>
-						<span id="location_longitude_label"></span>: <span id="location_longitude"></span>
+						<span id="location_latitude_label"></span>: <span id="location_latitude"></span><br>
+						<span id="location_longitude_label"></span>: <span id="location_longitude"></span><br>
 						<a id="location_map_link" href="" target="_blank">
 							<span id="location_map_label"></span>
 							<i class="rb-globe"></i>
@@ -92,19 +98,13 @@
 			</table>
 		</div>
 	</div>
-	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="logo rb-call-prayer-solid" title="Easy Prayer"></i> Easy Prayer</a></footer>
+	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="logo rb-call-prayer-solid" title="Easy Prayer"></i> <script type="text/javascript">document.write(window.version)</script> </a></footer>
 	<div class="overlay" id="program_info_popup">
 		<div class="popup">
 			<i id="close_popup_btn" class="close_btn right rb-circle-xmark"></i>
 			<h3><i class="logo rb-call-prayer-solid"></i> Easy Prayer v.8</h3>
-			<div id="program_info_content">
-			</div>
+			<div id="program_info_content"></div>
 		</div>
 	</div>
-	<script src="js/swipe.js"></script>
-	<script src="js/lang.js"></script>
-	<script src="js/settings.js"></script>
-	<script src="js/easy_prayer.js"></script>
-	<!-- <script src="app.js"></script> -->
 </body>
 </html>
