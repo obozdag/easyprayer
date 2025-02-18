@@ -49,6 +49,7 @@ window.onload = ()=>{
 	setCurrentLanguage()
 	setCurrentMadhab()
 	setCurrentMethod()
+	setPosition()
 
 	setLabels(currentLanguage);
 	fillSelects();
@@ -57,19 +58,29 @@ window.onload = ()=>{
 	installEventListeners();
 	restoreSettings();
 
-	let latitude = 50.4862592;
-	let longitude = 8.2737342;
+	// let latitude = 50.4862592;
+	// let longitude = 8.2737342;
 
 	// document.getElementById('prayer_city').innerHTML = 'Neustadt'
 	// document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
-
-	getPosition().then(position=>{
-		latitude  = position.coords.latitude
-		longitude = position.coords.longitude
-		setLocationInputs()
-		showPosition(latitude, longitude)
-		showTimes()
-	})
+	function setPosition(){
+		if(localStorage.getItem('latitude') && localStorage.getItem('longitude')){
+			latitude = parseFloat(localStorage.getItem('latitude'));
+			longitude = parseFloat(localStorage.getItem('longitude'));
+			setLocationInputs();
+			showPosition(latitude, longitude);
+			showTimes();
+		} else {
+			getPosition().then(position=>{
+				latitude  = position.coords.latitude
+				longitude = position.coords.longitude
+				setLocationInputs()
+				savePosition()
+				showPosition(latitude, longitude)
+				showTimes()
+			})
+		}
+	}
 
 	function setCurrentLanguage()
 	{
@@ -199,6 +210,13 @@ window.onload = ()=>{
 			methodList.value = method;
 			setMethod(method)
 		}
+
+		// Restore position
+		if (localStorage.getItem('latitude') && localStorage.getItem('longitude'))
+		{
+			latitude = localStorage.getItem('latitude');
+			longitude = localStorage.getItem('longitude');
+		}
 	}
 
 	function setLanguage(language)
@@ -223,6 +241,12 @@ window.onload = ()=>{
 		currentMethod = method;
 		localStorage.setItem('method', method);
 		closeNavs();
+	}
+
+	function savePosition()
+	{
+		localStorage.setItem('latitude', latitude);
+		localStorage.setItem('longitude', longitude);
 	}
 
 	function setLabels(language)
@@ -386,9 +410,9 @@ window.onload = ()=>{
 	{
 		mapHref = `https://www.google.com/maps/@${lat},${lon},${mapZoom}z`
 		document.getElementById('location_latitude_label').textContent = translations[currentLanguage]['latitude']
-		document.getElementById('location_latitude').textContent = latitude.toFixed(locationPrecision)
+		document.getElementById('location_latitude').textContent = latitude
 		document.getElementById('location_longitude_label').textContent = translations[currentLanguage]['longitude']
-		document.getElementById('location_longitude').textContent = longitude.toFixed(locationPrecision)
+		document.getElementById('location_longitude').textContent = longitude
 		document.getElementById('location_map_link').href = mapHref
 	}
 
@@ -486,7 +510,7 @@ window.onload = ()=>{
 
 	function setLocationInputs()
 	{
-		latInput.value = latitude.toFixed(locationPrecision)
-		lonInput.value = longitude.toFixed(locationPrecision)
+		latInput.value = latitude
+		lonInput.value = longitude
 	}
 }
