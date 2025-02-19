@@ -60,6 +60,36 @@ window.onload = ()=>{
 
 	setLocation()
 
+	function getPosition(options)
+	{
+		//to get current position
+		return new Promise(function(resolve, reject){
+			navigator.geolocation.getCurrentPosition(resolve, reject, options)
+		})
+	}
+
+	function getLocation(){
+		getPosition().then(position=>{
+			latitude  = position.coords.latitude
+			longitude = position.coords.longitude
+			setLocationInputs()
+			saveLocation()
+			showPosition(latitude, longitude)
+			showTimes()
+			closeNavs();
+		})
+	}
+
+	function showPosition(lat, lon)
+	{
+		mapHref = `https://www.google.com/maps/@${lat},${lon},${mapZoom}z`
+		document.getElementById('location_latitude_label').textContent = translations[currentLanguage]['latitude']
+		document.getElementById('location_latitude').textContent = latitude
+		document.getElementById('location_longitude_label').textContent = translations[currentLanguage]['longitude']
+		document.getElementById('location_longitude').textContent = longitude
+		document.getElementById('location_map_link').href = mapHref
+	}
+
 	function setLocation(){
 		if(localStorage.getItem('latitude') && localStorage.getItem('longitude')){
 			latitude = parseFloat(localStorage.getItem('latitude'));
@@ -72,40 +102,18 @@ window.onload = ()=>{
 		}
 	}
 
-	function getLocation(){
-		getPosition().then(position=>{
-			latitude  = position.coords.latitude
-			longitude = position.coords.longitude
-			setLocationInputs()
-			savePosition()
-			showPosition(latitude, longitude)
-			showTimes()
-		})
+	function saveLocation()
+	{
+		localStorage.setItem('latitude', latitude);
+		localStorage.setItem('longitude', longitude);
 	}
 
 	function setCurrentLanguage()
 	{
 		if( typeof currentLanguage === 'undefined')
 		{
-			let lang   = navigator.language.split(/[_-]/)[0];
-
-			if (languages.hasOwnProperty(lang))
-			{
-				defaultLanguage = lang;
-			}
-			else
-			{
-				defaultLanguage = 'en';
-			}
-
 			currentLanguage = defaultLanguage;
 		}
-
-		if (defaultLanguage != 'tr')
-		{
-			currentLanguage = 'tr';
-		}
-
 	}
 
 	function setCurrentMadhab()
@@ -248,12 +256,6 @@ window.onload = ()=>{
 		currentMethod = method;
 		localStorage.setItem('method', method);
 		closeNavs();
-	}
-
-	function savePosition()
-	{
-		localStorage.setItem('latitude', latitude);
-		localStorage.setItem('longitude', longitude);
 	}
 
 	function setLabels(language)
@@ -404,24 +406,6 @@ window.onload = ()=>{
 	function closeInfoPopup()
 	{
 		programInfoPopup.classList.remove('open');
-	}
-
-	function getPosition(options)
-	{
-		//to get current position
-		return new Promise(function(resolve, reject){
-			navigator.geolocation.getCurrentPosition(resolve, reject, options)
-		})
-	}
-
-	function showPosition(lat, lon)
-	{
-		mapHref = `https://www.google.com/maps/@${lat},${lon},${mapZoom}z`
-		document.getElementById('location_latitude_label').textContent = translations[currentLanguage]['latitude']
-		document.getElementById('location_latitude').textContent = latitude
-		document.getElementById('location_longitude_label').textContent = translations[currentLanguage]['longitude']
-		document.getElementById('location_longitude').textContent = longitude
-		document.getElementById('location_map_link').href = mapHref
 	}
 
 	function clearTimes()

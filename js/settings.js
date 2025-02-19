@@ -2,6 +2,7 @@ defaultBgColor    = 'cornsilk'
 defaultColor      = 'brown'
 defaultFontSize   = '28px'
 defaultMadhab     = 'Shafi'
+defaultLanguage   = 'tr'
 defaultMethod     = 'MuslimWorldLeague'
 defaultPeriod     = 'week'
 locationPrecision = 7
