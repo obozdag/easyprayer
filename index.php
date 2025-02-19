@@ -15,7 +15,7 @@
 	<script src="js/moment-timezone-with-data.js"></script>
     <script src="js/swipe.js"></script>
     <script src="js/lang.js"></script>
-    <script src="js/setting.js"></script>
+    <script src="js/settings.js"></script>
     <script src="js/easyprayer.js"></script>
     <script src="app.js"></script>
 
@@ -49,6 +49,10 @@
 			<div class="row">
 				<label id="lon_input_label"></label>
 				<input type="text" id="lon" size="10" maxlength="10" pattern="\d" title="Longitude">
+			</div>
+			<div class="row">
+				<label></label>
+				<button type="button" class="btn btn_nav" id="get_location_btn"></button>
 			</div>
 		</div>
 	</nav>

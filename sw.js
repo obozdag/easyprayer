@@ -1,4 +1,4 @@
-var version = 'Easy Prayer v0.91';
+var version = 'Easy Prayer v0.92';
 
 var staticContentToCache = [
 	'favicon.ico',

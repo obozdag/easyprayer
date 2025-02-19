@@ -6,6 +6,7 @@ window.onload = ()=>{
 	let closeNavRightBtn       = document.getElementById('close_nav_right');
 	let closePopupBtn          = document.getElementById('close_popup_btn');
 	let countryList            = document.getElementById('country_list');
+	let getLocationBtn         = document.getElementById('get_location_btn');
 	let header                 = document.getElementById('header');
 	let languageList           = document.getElementById('language_list');
 	let latInput               = document.getElementById('lat');
@@ -44,12 +45,11 @@ window.onload = ()=>{
 	var currentLanguage;
 	let currentPeriod = periods[defaultPeriod];
 
-	// Set current language, madhab and method first
+	// Set current language, madhab, method and position first
 
 	setCurrentLanguage()
 	setCurrentMadhab()
 	setCurrentMethod()
-	setPosition()
 
 	setLabels(currentLanguage);
 	fillSelects();
@@ -58,12 +58,9 @@ window.onload = ()=>{
 	installEventListeners();
 	restoreSettings();
 
-	// let latitude = 50.4862592;
-	// let longitude = 8.2737342;
+	setLocation()
 
-	// document.getElementById('prayer_city').innerHTML = 'Neustadt'
-	// document.getElementById('prayer_country').innerHTML = '(Marburg Germany)'
-	function setPosition(){
+	function setLocation(){
 		if(localStorage.getItem('latitude') && localStorage.getItem('longitude')){
 			latitude = parseFloat(localStorage.getItem('latitude'));
 			longitude = parseFloat(localStorage.getItem('longitude'));
@@ -71,15 +68,19 @@ window.onload = ()=>{
 			showPosition(latitude, longitude);
 			showTimes();
 		} else {
-			getPosition().then(position=>{
-				latitude  = position.coords.latitude
-				longitude = position.coords.longitude
-				setLocationInputs()
-				savePosition()
-				showPosition(latitude, longitude)
-				showTimes()
-			})
+			getLocation();
 		}
+	}
+
+	function getLocation(){
+		getPosition().then(position=>{
+			latitude  = position.coords.latitude
+			longitude = position.coords.longitude
+			setLocationInputs()
+			savePosition()
+			showPosition(latitude, longitude)
+			showTimes()
+		})
 	}
 
 	function setCurrentLanguage()
@@ -97,13 +98,14 @@ window.onload = ()=>{
 				defaultLanguage = 'en';
 			}
 
-			if (defaultLanguage != 'tr')
-			{
-				currentLanguage = 'tr';
-			}
-
 			currentLanguage = defaultLanguage;
 		}
+
+		if (defaultLanguage != 'tr')
+		{
+			currentLanguage = 'tr';
+		}
+
 	}
 
 	function setCurrentMadhab()
@@ -145,6 +147,11 @@ window.onload = ()=>{
 		// Reset settings button
 		rightResetBtn.addEventListener('click', (e)=>{
 			resetSettings()
+		});
+
+		// Get location button
+		getLocationBtn.addEventListener('click', (e)=>{
+			getLocation();
 		});
 
 		// Month button
@@ -261,6 +268,7 @@ window.onload = ()=>{
 		locationLatitudeLabel.textContent  = translations[language][locationLatitudeLabel.id];
 		locationLongitudeLabel.textContent = translations[language][locationLongitudeLabel.id];
 		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
+		getLocationBtn.textContent         = translations[language][getLocationBtn.id];
 		settingsHeader.textContent         = translations[language][settingsHeader.id];
 		header.textContent                 = translations[language][header.id];
 		locationMapLabel.textContent       = translations[language][location_map_label.id];
@@ -450,14 +458,6 @@ window.onload = ()=>{
 				'maghrib': moment(prayerTimes.maghrib).tz('Europe/Berlin').format('HH:mm'),
 				'isha'   : moment(prayerTimes.isha).tz('Europe/Berlin').format('HH:mm'),
 			}
-			// prayTimes = {
-			// 	'fajr'   : formattedTime(prayerTimes.fajr, offset),
-			// 	'sunrise': formattedTime(prayerTimes.sunrise, offset),
-			// 	'dhuhr'  : formattedTime(prayerTimes.dhuhr, offset),
-			// 	'asr'    : formattedTime(prayerTimes.asr, offset),
-			// 	'maghrib': formattedTime(prayerTimes.maghrib, offset),
-			// 	'isha'   : formattedTime(prayerTimes.isha, offset),
-			// }
 
 			fillTableCells(day, prayTimes);
 		}
@@ -468,7 +468,6 @@ window.onload = ()=>{
 		prayerNames = translations[currentLanguage]['prayer_names']
 		headers = document.createElement('tr');
 			th = document.createElement('th');
-			// th.textContent = translations['tr']['date'];
 			th.textContent = '';
 			headers.appendChild(th);
 
