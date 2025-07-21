@@ -1,5 +1,3 @@
-var version = 'Easy Prayer v0.90';
-
 window.onload = ()=>{
 	// Define elements
 	let closeNavLeftBtn        = document.getElementById('close_nav_left');
@@ -11,6 +9,7 @@ window.onload = ()=>{
 	let languageList           = document.getElementById('language_list');
 	let latInput               = document.getElementById('lat');
 	let locationHeader         = document.getElementById('location_header');
+	let locationLoading        = document.getElementById('location_loading');
 	let locationSettingsHeader = document.getElementById('location_settings_header');
 	let lonInput               = document.getElementById('lon');
 	let madhabList             = document.getElementById('madhab_list');
@@ -29,6 +28,8 @@ window.onload = ()=>{
 	let rightResetBtn          = document.getElementById('right_reset_btn');
 	let settingsHeader         = document.getElementById('settings_header');
 	let weekBtn                = document.getElementById('week_btn');
+	let versionFooter          = document.getElementById('version_footer');
+	let versionInfo            = document.getElementById('version_info');
 
 	// Labels
 	let cityListLabel          = document.getElementById('city_list_label');
@@ -68,7 +69,9 @@ window.onload = ()=>{
 		})
 	}
 
-	function getLocation(){
+	function getLocation()
+	{
+		showLoading()
 		getPosition().then(position=>{
 			latitude  = position.coords.latitude
 			longitude = position.coords.longitude
@@ -76,8 +79,17 @@ window.onload = ()=>{
 			saveLocation()
 			showPosition(latitude, longitude)
 			showTimes()
+			hideLoading()
 			closeNavs();
 		})
+	}
+
+	function showLoading() {
+		locationLoading.className = 'visible'
+	}
+
+	function hideLoading() {
+		locationLoading.className = 'invisible'
 	}
 
 	function showPosition(lat, lon)
@@ -260,22 +272,24 @@ window.onload = ()=>{
 
 	function setLabels(language)
 	{
-		languageListLabel.textContent      = translations[language][languageListLabel.id];
-		countryListLabel.textContent       = translations[language][countryListLabel.id];
 		cityListLabel.textContent          = translations[language][cityListLabel.id];
-		madhabListLabel.textContent        = translations[language][madhabListLabel.id];
-		methodListLabel.textContent        = translations[language][methodListLabel.id];
+		countryListLabel.textContent       = translations[language][countryListLabel.id];
+		getLocationBtn.textContent         = translations[language][getLocationBtn.id];
+		header.textContent                 = translations[language][header.id];
+		languageListLabel.textContent      = translations[language][languageListLabel.id];
 		latInputLabel.textContent          = translations[language][latInputLabel.id];
-		lonInputLabel.textContent          = translations[language][lonInputLabel.id];
+		locationHeader.textContent         = translations[language][location_header.id];
 		locationLatitudeLabel.textContent  = translations[language][locationLatitudeLabel.id];
 		locationLongitudeLabel.textContent = translations[language][locationLongitudeLabel.id];
-		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
-		getLocationBtn.textContent         = translations[language][getLocationBtn.id];
-		settingsHeader.textContent         = translations[language][settingsHeader.id];
-		header.textContent                 = translations[language][header.id];
 		locationMapLabel.textContent       = translations[language][location_map_label.id];
-		locationHeader.textContent         = translations[language][location_header.id];
 		locationSettingsHeader.textContent = translations[language][locationSettingsHeader.id];
+		lonInputLabel.textContent          = translations[language][lonInputLabel.id];
+		madhabListLabel.textContent        = translations[language][madhabListLabel.id];
+		methodListLabel.textContent        = translations[language][methodListLabel.id];
+		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
+		settingsHeader.textContent         = translations[language][settingsHeader.id];
+		versionFooter.textContent          = version;
+		versionInfo.textContent            = version;
 	}
 
 	function fillSelects()

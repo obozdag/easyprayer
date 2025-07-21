@@ -1,5 +1,6 @@
-var version = 'Easy Prayer v0.92';
-
+ // Change this number after each modification to make browser to refresh the app
+ // That is not necessarily the version but just a modification
+var cacheName = 'v0.96';
 var staticContentToCache = [
 	'favicon.ico',
 	'css/easy_prayer.css',

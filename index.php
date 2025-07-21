@@ -10,16 +10,15 @@
 	<link rel="canonical" href="https://prayer.fklavye.net">
 	<link rel="stylesheet" type="text/css" href="css/easy_prayer.css">
 	<link rel="apple-touch-icon" href="css/icons/easy_prayer_96x96.png">
-    <script src="js/adhan.umd.js"></script>
+	<link rel="manifest" href="easy_prayer.json">
+	<script src="js/adhan.umd.js"></script>
 	<script src="js/moment-with-locales.min.js"></script>
 	<script src="js/moment-timezone-with-data.js"></script>
-    <script src="js/swipe.js"></script>
-    <script src="js/lang.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/easyprayer.js"></script>
-    <script src="app.js"></script>
-
-	<link rel="manifest" href="easy_prayer.json">
+	<script src="js/swipe.js"></script>
+	<script src="js/lang.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/easyprayer.js"></script>
+	<script src="app.js"></script>
 </head>
 <body>
 	<nav id="nav_top">
@@ -53,6 +52,10 @@
 			<div class="row">
 				<label></label>
 				<button type="button" class="btn btn_nav" id="get_location_btn"></button>
+			</div>
+			<div class="row">
+				<label></label>
+				<span class="invisible" id="location_loading"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FF156D"></stop><stop offset=".3" stop-color="#FF156D" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FF156D" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FF156D" stop-opacity=".3"></stop><stop offset="1" stop-color="#FF156D" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FF156D" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg></span>
 			</div>
 		</div>
 	</nav>
@@ -101,14 +104,20 @@
 			<table id="prayer_table">
 			</table>
 		</div>
-	</div>
-	<footer><a target="_blank" href="https://github.com/obozdag/prayer"><i class="logo rb-call-prayer-solid" title="Easy Prayer"></i> <script type="text/javascript">document.write(window.version)</script> </a></footer>
-	<div class="overlay" id="program_info_popup">
-		<div class="popup">
-			<i id="close_popup_btn" class="close_btn right rb-circle-xmark"></i>
-			<h3><i class="logo rb-call-prayer-solid"></i> Easy Prayer v.8</h3>
-			<div id="program_info_content"></div>
+		<div class="overlay" id="program_info_popup">
+			<div class="popup">
+				<i id="close_popup_btn" class="close_btn right rb-circle-xmark"></i>
+				<h3><i class="logo rb-call-prayer-solid"></i> Easy Prayer <span id="version_info"></span></h3>
+				<div id="program_info_content"></div>
+			</div>
 		</div>
 	</div>
+	<footer>
+		<a target="_blank" href="https://github.com/obozdag/prayer">
+			<i class="logo rb-call-prayer-solid" title="Easy Prayer"></i>
+			Easy Prayer
+			<span id="version_footer"></span>
+		</a>
+	</footer>
 </body>
 </html>

@@ -1,3 +1,4 @@
+version           = 'v0.96'
 defaultBgColor    = 'cornsilk'
 defaultColor      = 'brown'
 defaultFontSize   = '28px'
