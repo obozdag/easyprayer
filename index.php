@@ -1,3 +1,6 @@
+<?php
+	$version     = 'v0.97';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="css/easy_prayer.css">
 	<link rel="apple-touch-icon" href="css/icons/easy_prayer_96x96.png">
 	<link rel="manifest" href="easy_prayer.json">
+	<script type="text/javascript">
+		var version = '<?= $version ?>'
+	</script>
 	<script src="js/adhan.umd.js"></script>
 	<script src="js/moment-with-locales.min.js"></script>
 	<script src="js/moment-timezone-with-data.js"></script>
