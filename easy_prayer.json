@@ -2,10 +2,14 @@
 	"name": "Easy Prayer",
 	"short_name": "Easy Prayer",
 	"description": "Punctual Prayer Times",
+	"id": "/",
 	"start_url": "/",
-	"display": "fullscreen",
-	"background_color": "#008b8b",
-	"theme_color": "#008b8b",
+	"scope": "/",
+	"display": "standalone",
+	"lang": "en",
+	"dir": "ltr",
+	"background_color": "steelblue",
+	"theme_color": "steelblue",
 	"icons": [
 		{
 			"src": "css/icons/easy_prayer_72x72.png",
@@ -35,7 +39,8 @@
 		{
 			"src": "css/icons/easy_prayer_192x192.png",
 			"type": "image/png",
-			"sizes": "192x192"
+			"sizes": "192x192",
+			"purpose": "any maskable"
 		},
 		{
 			"src": "css/icons/easy_prayer_384x384.png",
@@ -45,7 +50,22 @@
 		{
 			"src": "css/icons/easy_prayer_512x512.png",
 			"type": "image/png",
-			"sizes": "512x512"
+			"sizes": "512x512",
+			"purpose": "any maskable"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "Easy Prayer",
+			"short_name": "Prayer",
+			"url": "/",
+			"icons": [
+				{
+					"src": "css/icons/easy_prayer_192x192.png",
+					"type": "image/png",
+					"sizes": "192x192"
+				}
+			]
 		}
 	]
 }

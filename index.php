@@ -1,44 +1,64 @@
 <?php
-	$prg_name = 'Easy Prayer';
-	$version  = 'v0.99';
+	$app_config  = json_decode((string) file_get_contents(__DIR__ . '/app_config.json'), true);
+	$app_config  = is_array($app_config) ? $app_config : [];
+	$prg_name    = $app_config['programName'] ?? 'Easy Prayer';
+	$version     = $app_config['version'] ?? 'dev';
+	$version_tag = $version === 'dev' ? 'dev' : 'v' . $version;
+	$color       = $app_config['color'] ?? 'steelblue';
+	$canonical   = $app_config['canonicalUrl'] ?? 'https://prayer.fklavye.net';
+	$repository  = $app_config['repositoryUrl'] ?? 'https://github.com/obozdag/easyprayer';
+
+	function e($value): string
+	{
+		return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+	}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Easy Prayer</title>
+	<title><?= e($prg_name) ?></title>
 	<meta charset="utf-8">
 	<meta name="description" content="Easy Prayer, easy to use, lightweight (200KB), multi language, responsive, progressive web app.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="apple-mobile-web-app-status-bar" content="steelblue">
-	<meta name="theme-color" content="steelblue">
-	<link rel="canonical" href="https://prayer.fklavye.net">
-	<link rel="stylesheet" type="text/css" href="css/easy_prayer.css">
-	<link rel="apple-touch-icon" href="css/icons/easy_prayer_96x96.png">
-	<link rel="manifest" href="easy_prayer.json">
+	<meta name="apple-mobile-web-app-status-bar" content="<?= e($color) ?>">
+	<meta name="theme-color" content="<?= e($color) ?>">
+	<link rel="canonical" href="<?= e($canonical) ?>">
+	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css">
+	<link rel="apple-touch-icon" href="/css/icons/easy_prayer_96x96.png">
+	<link rel="manifest" href="/easy_prayer.json">
 	<script type="text/javascript">
-		var prg_name = '<?= $prg_name ?>';
-		var version  = '<?= $version ?>';
+		window.appConfig = {
+			programName: '<?= e($prg_name) ?>',
+			version: '<?= e($version) ?>',
+			versionLabel: '<?= e($version_tag) ?>'
+		};
+		var prg_name = window.appConfig.programName;
+		var version  = window.appConfig.versionLabel;
 	</script>
-	<script src="js/adhan.umd.js"></script>
-	<script src="js/moment-with-locales.min.js"></script>
-	<script src="js/moment-timezone-with-data.js"></script>
-	<script src="js/swipe.js"></script>
-	<script src="js/lang.js"></script>
-	<script src="js/settings.js"></script>
-	<script src="js/easyprayer.js"></script>
-	<script src="app.js"></script>
+	<script defer src="/js/adhan.umd.js"></script>
+	<script defer src="/js/moment-with-locales.min.js"></script>
+	<script defer src="/js/moment-timezone-with-data.js"></script>
+	<script defer src="/js/swipe.js"></script>
+	<script defer src="/js/lang.js"></script>
+	<script defer src="/js/settings.js"></script>
+	<script defer src="/js/easyprayer.js"></script>
+	<script defer src="/app.js"></script>
 </head>
 <body>
+	<div id="update-banner" class="update-banner" hidden>
+		<span id="update-banner-text">New version available.</span>
+		<button type="button" id="update-banner-reload" class="btn update-banner-btn">Reload</button>
+	</div>
 	<nav id="nav-top">
-		<i id="open-nav-left" class="nav-top-btn rb-map-location-dot" title="Nav Left"></i>
-		<i id="program-info-btn" class="nav-top-btn rb-call-prayer-solid" title="Program Info"></i>
-		<i id="month-btn" class="nav-top-btn rb-monthly-calendar" title="Month"></i>
-		<i id="week-btn" class="nav-top-btn rb-weekly-calendar" title="Week"></i>
+		<button type="button" id="open-nav-left" class="nav-top-btn rb-map-location-dot" title="Nav Left" aria-label="Open location settings"></button>
+		<button type="button" id="program-info-btn" class="nav-top-btn rb-call-prayer-solid" title="Program Info" aria-label="Program info"></button>
+		<button type="button" id="month-btn" class="nav-top-btn rb-monthly-calendar" title="Month" aria-label="Show monthly table"></button>
+		<button type="button" id="week-btn" class="nav-top-btn rb-weekly-calendar" title="Week" aria-label="Show weekly table"></button>
 		<!-- <span><i id="bookmark-icon" class="nav-top-btn rb-bookmark" title="Bookmark"></i><span id="bookmark-container"></span></span> -->
-		<i id="open-nav-right" class="nav-top-btn rb-slider" title="Nav Right"></i>
+		<button type="button" id="open-nav-right" class="nav-top-btn rb-slider" title="Nav Right" aria-label="Open settings"></button>
 	</nav>
 	<nav id="nav-left">
-		<i id="close-nav-left" class="close-btn right rb-circle-xmark"></i>
+		<button type="button" id="close-nav-left" class="close-btn right rb-circle-xmark" aria-label="Close location settings"></button>
 		<h4 id="location-settings-header" class="settings-header"></h4>
 		<div class="settings">
 			<div class="row">
@@ -68,7 +88,7 @@
 		</div>
 	</nav>
 	<nav id="nav-right">
-		<i id="close-nav-right" class="close-btn left rb-circle-xmark"></i>
+		<button type="button" id="close-nav-right" class="close-btn left rb-circle-xmark" aria-label="Close settings"></button>
 		<div class="settings">
 			<h4 id="settings-header" class="settings-header"></h4>
 			<div class="row">
@@ -111,7 +131,7 @@
 					<span class="location-info">
 						<span id="location-latitude-label"></span>: <span id="location-latitude"></span><br>
 						<span id="location-longitude-label"></span>: <span id="location-longitude"></span><br>
-						<a id="location-map-link" href="" target="-blank">
+						<a id="location-map-link" href="" target="_blank" rel="noopener">
 							<span id="location-map-label"></span>
 							<i class="rb-globe"></i>
 						</a>
@@ -127,16 +147,16 @@
 		</div>
 		<div class="overlay" id="program-info-popup">
 			<div class="popup">
-				<i id="close-popup-btn" class="close-btn right rb-circle-xmark"></i>
-				<h3><i class="logo rb-call-prayer-solid"></i> <?= $prg_name.' '.$version ?></h3>
+				<button type="button" id="close-popup-btn" class="close-btn right rb-circle-xmark" aria-label="Close program info"></button>
+				<h3><i class="logo rb-call-prayer-solid"></i> <?= e($prg_name . ' ' . $version_tag) ?></h3>
 				<div id="program-info-content"></div>
 			</div>
 		</div>
 	</div>
 	<footer>
-		<a target="_blank" href="https://github.com/obozdag/prayer">
-			<i class="logo rb-call-prayer-solid" title="<?= $prg_name ?>"></i>
-			<?= $prg_name ?>
+		<a target="_blank" rel="noopener" href="<?= e($repository) ?>">
+			<i class="logo rb-call-prayer-solid" title="<?= e($prg_name) ?>"></i>
+			<?= e($prg_name . ' ' . $version_tag) ?>
 		</a>
 	</footer>
 </body>

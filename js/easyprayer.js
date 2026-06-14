@@ -88,6 +88,8 @@ window.onload = ()=>{
 			showTimes()
 			hideLoading()
 			closeNavs();
+		}).catch(() => {
+			hideLoading()
 		})
 	}
 
@@ -450,9 +452,8 @@ window.onload = ()=>{
 
 	async function fetchLangHTML(language, file)
 	{
-		result = ''
-		console.log(result)
-		path = 'languages/' + language + '/' + file + '.php?' + Date.now()
+		let result = '';
+		const path = 'languages/' + language + '/' + file + '.php';
 		await fetch(path).then(data => data.text()).then(html => {result = html})
 		return result
 	}
