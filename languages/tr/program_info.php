@@ -28,4 +28,4 @@
 <p><small>Özellik ekleme isteği veya hata bildirimi için lütfen info at fklavye nokta net adresine email gönderiniz.</small></p>
 <p><small>Bu açık kaynak kodlu bir projedir. <a target="_blank" href="https://github.com/obozdag/prayer">github</a> üzerinden katkıda bulunabilirsiniz.</small></p>
 <p><small><a target="_blank" href="https://quran.fklavye.net"><i class="logo rb-easyquran"></i> Easy Quran</a> kolay Kuran okuma programı.</small></p>
-<p><small><a target="_blank" href="https://dua.fklavye.net"style="color: var(--set-color);"><i class="logo rb-hands-praying-solid"></i> Easy Dua</a> kolay cevşen ve dua okuma programı.</small></p>
+<p><small><a target="_blank" href="https://dua.fklavye.net" style="color: var(--set-color);"><i class="logo rb-hands-praying-solid"></i> Easy Dua</a> kolay cevşen ve dua okuma programı.</small></p>

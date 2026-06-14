@@ -23,24 +23,6 @@ madhabs = {
   Hanafi: 'Hanafi'
 };
 
-// methods = {
-// 	'mwl'   : 'Muslim World League',
-// 	'isna'  : 'Islamic Society of North America',
-// 	'egypt' : 'Egyptian General Authority of Survey',
-// 	'makkah' : 'Umm al-Qura University, Makkah',
-// 	'karachi' : 'University of Islamic Sciences, Karachi',
-// 	'tehran' : 'Institute of Geophysics, University of Tehran',
-// 	'shia' : 'Shia Ithna Ashari, Leva Research Institute, Qum',
-// };
-// Muslim World League	18	17
-// Islamic Society of North America (ISNA)	15	15
-// Egyptian General Authority of Survey	19.5	17.5
-// Umm al-Qura University, Makkah	18.5	90 min after Maghrib
-// 120 min during Ramadan
-// University of Islamic Sciences, Karachi	18	18
-// Institute of Geophysics, University of Tehran	17.7	14*
-// Shia Ithna Ashari, Leva Research Institute, Qum	16	14
-
 methods = {
 	MuslimWorldLeague: 'Muslim World League',
 	Turkey: 'Presidency of Religious Affairs, Turkey',
@@ -57,65 +39,71 @@ methods = {
 	Other: 'Custom Calculation Method',
 };
 
-fontSizes = {
-	'16px' : '16',
-	'18px' : '18',
-	'20px' : '20',
-	'22px' : '22',
-	'24px' : '24',
-	'28px' : '28',
-	'30px' : '30',
-	'32px' : '32',
-	'34px' : '34',
-	'36px' : '36',
-	'38px' : '38',
-	'40px' : '40',
-	'42px' : '42',
+fontSizes = {}; for(i=16; i<=64;i+=2){fontSizes[i+'px'] = i;};
+
+fontFamilies  = {
+	'EasyArabic' : 'EasyArabic',
+	'Lateef' : 'Lateef',
 };
 
 colors = {
-	brown          : 'Brown',
-	cadetblue      : 'Cadetblue',
-	chocolate      : 'Chocolate',
-	coral          : 'Coral',
-	cornflowerblue : 'Cornflowerblue',
-	crimson        : 'Crimson',
-	darkblue       : 'Darkblue',
-	darkcyan       : 'Darkcyan',
-	darkgoldenrod  : 'Darkgoldenrod',
-	darkmagenta    : 'Darkmagenta',
-	darkolivegreen : 'Darkolivegreen',
-	darkorange     : 'Darkorange',
-	darkred        : 'Darkred',
-	darkslategray  : 'Darkslategray',
-	deeppink       : 'Deeppink',
-	midnightblue   : 'Midnightblue',
-	orangered      : 'Orangered',
-	red            : 'Red',
-	royalblue      : 'Royalblue',
-	seagreen       : 'Seagreen',
-	steelblue      : 'Steelblue',
-	teal           : 'Teal',
+	'brown'          : 'Brown',
+	'cadetblue'      : 'Cadetblue',
+	'chocolate'      : 'Chocolate',
+	'coral'          : 'Coral',
+	'cornflowerblue' : 'Cornflowerblue',
+	'crimson'        : 'Crimson',
+	'darkblue'       : 'Darkblue',
+	'darkcyan'       : 'Darkcyan',
+	'darkgoldenrod'  : 'Darkgoldenrod',
+	'darkmagenta'    : 'Darkmagenta',
+	'darkolivegreen' : 'Darkolivegreen',
+	'darkorange'     : 'Darkorange',
+	'darkred'        : 'Darkred',
+	'darkslategray'  : 'Darkslategray',
+	'deeppink'       : 'Deeppink',
+	'midnightblue'   : 'Midnightblue',
+	'orangered'      : 'Orangered',
+	'red'            : 'Red',
+	'royalblue'      : 'Royalblue',
+	'seagreen'       : 'Seagreen',
+	'steelblue'      : 'Steelblue',
+	'teal'           : 'Teal',
+	'#3a86ff'        : 'Nylonblue',
+	'#863dec'        : 'Overreact',
+	'#ff006e'        : 'Respark',
+	'#00b4be'        : 'Babeblue',
+	'#c77dff'        : 'Venomoth',
+	'#f160b7'        : 'Heavenlylove',
+	'#00b7f4'        : 'Summervacation',
+	'#00f5d4'        : 'Sunshinyblue',
 };
 
 bgColors = {
-	cornsilk       : 'Cornsilk',
-	floralwhite    : 'Floralwhite',
-	ghostwhite     : 'Ghostwhite',
-	honeydew       : 'Honeydew',
-	ivory          : 'Ivory',
-	khaki          : 'Khaki',
-	lavender       : 'Lavender',
-	lavenderblush  : 'Lavenderblush',
-	lemonchiffon   : 'Lemonchiffon',
-	lightblue      : 'Lightblue',
-	lightcyan      : 'Lightcyan',
-	lightpink      : 'Lightpink',
-	lightskyblue   : 'Lightskyblue',
-	lightyellow    : 'Lightyellow',
-	linen          : 'Linen',
-	mintcream      : 'Mintcream',
-	seashell       : 'Seashell',
-	white          : 'White',
-}
-
+	'cornsilk'       : 'Cornsilk',
+	'floralwhite'    : 'Floralwhite',
+	'ghostwhite'     : 'Ghostwhite',
+	'honeydew'       : 'Honeydew',
+	'ivory'          : 'Ivory',
+	'khaki'          : 'Khaki',
+	'lavender'       : 'Lavender',
+	'lavenderblush'  : 'Lavenderblush',
+	'lemonchiffon'   : 'Lemonchiffon',
+	'lightblue'      : 'Lightblue',
+	'lightcyan'      : 'Lightcyan',
+	'lightpink'      : 'Lightpink',
+	'lightskyblue'   : 'Lightskyblue',
+	'lightyellow'    : 'Lightyellow',
+	'linen'          : 'Linen',
+	'mintcream'      : 'Mintcream',
+	'seashell'       : 'Seashell',
+	'white'          : 'White',
+	'#3a86ff'        : 'Nylonblue',
+	'#863dec'        : 'Overreact',
+	'#ff006e'        : 'Respark',
+	'#00b4be'        : 'Babeblue',
+	'#c77dff'        : 'Venomoth',
+	'#f160b7'        : 'Heavenlylove',
+	'#00b7f4'        : 'Summervacation',
+	'#00f5d4'        : 'Sunshinyblue',
+};

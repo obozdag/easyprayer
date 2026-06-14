@@ -28,5 +28,5 @@
 </ul>
 <p><small>For feature requests or any bug reports please send email to info at fklavye dot net</small></p>
 <p><small>That is an open source project. You can contribute on <a target="_blank" href="https://github.com/obozdag/prayer">github</a></small></p>
-<p><small><a target="_blank" href="https://quran.fklavye.net"><i class="logo rb-easyquran"></i> Easy Quran</a> is another open source project to easily read Quran</small></p>
-<p><small><a target="_blank" href="https://dua.fklavye.net" style="color: var(--set-color);"><i class="logo rb-hands-praying-solid"></i> Easy Dua</a> is another open source project to easily read Jawshan and some other duas</small></p>
+<p><small><a target="_blank" href="https://quran.fklavye.net"><i class="logo rb-easyquran"></i> Easy Quran</a> is another open source project to easily read Quran.</small></p>
+<p><small><a target="_blank" href="https://dua.fklavye.net" style="color: var(--set-color);"><i class="logo rb-hands-praying-solid"></i> Easy Dua</a> is another open source project to easily read Jawshan and some other duas.</small></p>

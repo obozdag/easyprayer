@@ -73,10 +73,10 @@ h4, h5{
 h5 {
 	font-size: 1rem;
 }
-#prayer_country {
+#prayer-country {
 	/*font-size: 1rem;*/
 }
-#nav_top {
+#nav-top {
 	position: fixed;
 	display: flex;
 	justify-content: space-between;
@@ -91,16 +91,16 @@ h5 {
 	color: white;
 	z-index: 1;
 }
-.nav_top_btn {
+.nav-top-btn {
 	color: white;
 	cursor: pointer;
 	z-index: 100;
 }
-.date_btn {
+.date-btn {
 	border-color: white;
 	line-height: 1;
 }
-#nav_left, #nav_right {
+#nav-left, #nav-right {
 	position: fixed;
 	top: var(--nth);
 	width: 70%;
@@ -115,38 +115,38 @@ h5 {
 	z-index: 100;
 	transition: .5s;
 }
-#nav_left {
+#nav-left {
 	left: -70%;
 	border-top-right-radius: var(--brs);
 }
-#nav_right {
+#nav-right {
 	right: -70%;
 	border-top-left-radius: var(--brs);
 }
-#nav_left.open {
+#nav-left.open {
 	left: 0;
 }
-#nav_right.open {
+#nav-right.open {
 	right: 0;
 }
-.close_btn {
+.close-btn {
 	position: absolute;
 	top: 10px;
 	cursor: pointer;
 }
-.close_btn.right {
+.close-btn.right {
 	right: 10px;
 }
-.close_btn.left {
+.close-btn.left {
 	left: 10px;
 }
-.close_btn:hover {
+.close-btn:hover {
 	color: white;
 }
-.text_right {
+.text-right {
 	text-align: right;
 }
-.text_center {
+.text-center {
 	text-align: center;
 }
 .settings {
@@ -174,7 +174,7 @@ h5 {
 	text-align: right;
 	line-height: 2rem;
 }
-.settings_header {
+.settings-header {
 	margin-bottom: 1rem;
 	padding: .5rem 1rem;
 	border-bottom: 1px solid rgba(200, 200, 200, .5);
@@ -182,29 +182,29 @@ h5 {
 	font-size: 1.2rem;
 	color: white;
 }
-.settings_message {
+.settings-message {
 	display: block;
 	text-align: center;
 }
-#sura_shortcuts_row {
+#sura-shortcuts-row {
 	overflow-y: auto;
 }
-#sura_shortcuts_container {
+#sura-shortcuts-container {
 	padding: 5px;
 	overflow-y: auto;
 	border: 1px solid rgba(200, 200, 200, .5);
 }
-#sura_shortcuts li {
+#sura-shortcuts li {
 	margin-bottom: 1rem;
 	cursor: pointer;
 }
-.goto_page_container {
+.goto-page-container {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	grid-gap: 5px;
 	align-items: center;
 }
-.btn_nav {
+.btn-nav {
 	height: 2rem;
 	color: white;
 	border: 1px solid white;
@@ -213,7 +213,7 @@ h5 {
 	user-select: none;
 	outline: none;
 }
-.btn_nav:hover {
+.btn-nav:hover {
 	color: var(--set-color);
 	background-color: white;
 }
@@ -235,7 +235,7 @@ h5 {
 	color: var(--set-color);
 	background-color: white;
 }
-#bookmark_icon {
+#bookmark-icon {
 	margin-right: 1rem;
 	cursor: pointer;
 }
@@ -306,7 +306,7 @@ h5 {
 	background: rgba(0, 0, 0, .7);
 	opacity: 0;
 }
-#close_popup_btn:hover {
+#close-popup-btn:hover {
 	color: var(--set-color);
 }
 .overlay.open {
@@ -322,7 +322,7 @@ h5 {
 	background-color: white;
 	border-radius: var(--brs);
 }
-#program_info_content {
+#program-info-content {
 	max-height: 70vh;
 	margin-top: 2rem;
 	overflow-y: auto;
@@ -343,14 +343,14 @@ h5 {
 .ul.icons li {
 	margin-bottom: .8rem;
 }
-#sura_list {
+#sura-list {
 }
-#sura_shortcuts {
+#sura-shortcuts {
 }
-#sura_shortcuts_label {
+#sura-shortcuts-label {
 	margin-bottom: 1rem;
 }
-.sura_shortcut {
+.sura-shortcut {
 	display: grid;
 	grid-template-columns: 3fr 2fr;
 	grid-gap: 5px;
@@ -387,7 +387,7 @@ footer a {
 	font-size: 1rem;
 	vertical-align: middle;
 }
-#loading_overlay {
+#loading-overlay {
 	display: block;
 	position: fixed;
 	left: 0;
@@ -402,7 +402,7 @@ footer a {
 	visibility: visible;
 	transition: 1s;
 }
-#loading_content {
+#loading-content {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -411,40 +411,40 @@ footer a {
 	color: white;
 	text-align: center;
 }
-#loading_content h3,
-#loading_content p
+#loading-content h3,
+#loading-content p
  {
 	margin-bottom: 1rem;
 }
-#loading_image {
+#loading-image {
 }
-#nav_loading {
+#nav-loading {
 	display: none;
 }
-#prayer_times {
+#prayer-times {
 	padding-bottom: 6rem;
 }
-#prayer_table {
+#prayer-table {
 	border-collapse: collapse;
 	width: 100%;
 	max-width: 100%;
 	margin-bottom: 1rem;
 	color: black;
 }
-#prayer_table th {
+#prayer-table th {
 	padding: 8px 2px;
 	vertical-align: bottom;
 	border-top: 1px solid #dee2e6;
 	border-bottom: 2px solid #dee2e6;
 	text-align: right;
 }
-#prayer_table td {
+#prayer-table td {
 	padding: 8px 2px;
 	vertical-align: top;
 	border-top: 1px solid #dee2e6;
 	text-align: right;
 }
-#prayer_table .date_cell {
+#prayer-table .date-cell {
 	max-width: 100px;
 	text-align: left;
 }
@@ -452,7 +452,7 @@ footer a {
 	color: steelblue;
 	font-size: smaller;
 }
-.location_info {
+.location-info {
 	font-size: smaller;
 	color: gray;
 }

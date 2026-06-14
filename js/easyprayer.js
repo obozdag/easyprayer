@@ -1,47 +1,54 @@
 window.onload = ()=>{
 	// Define elements
-	let closeNavLeftBtn        = document.getElementById('close_nav_left');
-	let closeNavRightBtn       = document.getElementById('close_nav_right');
-	let closePopupBtn          = document.getElementById('close_popup_btn');
-	let countryList            = document.getElementById('country_list');
-	let getLocationBtn         = document.getElementById('get_location_btn');
+	let closeNavLeftBtn        = document.getElementById('close-nav-left');
+	let closeNavRightBtn       = document.getElementById('close-nav-right');
+	let closePopupBtn          = document.getElementById('close-popup-btn');
+	let countryList            = document.getElementById('country-list');
+	let getLocationBtn         = document.getElementById('get-location-btn');
 	let header                 = document.getElementById('header');
-	let languageList           = document.getElementById('language_list');
+	let languageList           = document.getElementById('language-list');
 	let latInput               = document.getElementById('lat');
-	let locationHeader         = document.getElementById('location_header');
-	let locationLoading        = document.getElementById('location_loading');
-	let locationSettingsHeader = document.getElementById('location_settings_header');
+	let locationHeader         = document.getElementById('location-header');
+	let locationLoading        = document.getElementById('location-loading');
+	let locationSettingsHeader = document.getElementById('location-settings-header');
 	let lonInput               = document.getElementById('lon');
-	let madhabList             = document.getElementById('madhab_list');
-	let methodList             = document.getElementById('method_list');
-	let monthBtn               = document.getElementById('month_btn');
-	let navLeft                = document.getElementById('nav_left');
-	let navRight               = document.getElementById('nav_right');
-	let navTop                 = document.getElementById('nav_top');
-	let openNavLeftBtn         = document.getElementById('open_nav_left');
-	let openNavRightBtn        = document.getElementById('open_nav_right');
-	let prayerTable            = document.getElementById('prayer_table')
-	let prayerTimes            = document.getElementById('prayer_times');
-	let programInfoBtn         = document.getElementById('program_info_btn');
-	let programInfoContent     = document.getElementById('program_info_content');
-	let programInfoPopup       = document.getElementById('program_info_popup');
-	let rightResetBtn          = document.getElementById('right_reset_btn');
-	let settingsHeader         = document.getElementById('settings_header');
-	let weekBtn                = document.getElementById('week_btn');
-	let versionFooter          = document.getElementById('version_footer');
-	let versionInfo            = document.getElementById('version_info');
+	let madhabList             = document.getElementById('madhab-list');
+	let methodList             = document.getElementById('method-list');
+	let monthBtn               = document.getElementById('month-btn');
+	let navLeft                = document.getElementById('nav-left');
+	let navRight               = document.getElementById('nav-right');
+	let navTop                 = document.getElementById('nav-top');
+	let openNavLeftBtn         = document.getElementById('open-nav-left');
+	let openNavRightBtn        = document.getElementById('open-nav-right');
+	let prayerTable            = document.getElementById('prayer-table')
+	let prayerTimes            = document.getElementById('prayer-times');
+	let programInfoBtn         = document.getElementById('program-info-btn');
+	let programInfoContent     = document.getElementById('program-info-content');
+	let programInfoPopup       = document.getElementById('program-info-popup');
+	let rightResetBtn          = document.getElementById('right-reset-btn');
+	let settingsHeader         = document.getElementById('settings-header');
+	let weekBtn                = document.getElementById('week-btn');
 
 	// Labels
-	let cityListLabel          = document.getElementById('city_list_label');
-	let countryListLabel       = document.getElementById('country_list_label');
-	let languageListLabel      = document.getElementById('language_list_label');
-	let latInputLabel          = document.getElementById('lat_input_label');
-	let locationLatitudeLabel  = document.getElementById('location_latitude_label');
-	let locationLongitudeLabel = document.getElementById('location_longitude_label');
-	let locationMapLabel       = document.getElementById('location_map_label');
-	let lonInputLabel          = document.getElementById('lon_input_label');
-	let madhabListLabel        = document.getElementById('madhab_list_label');
-	let methodListLabel        = document.getElementById('method_list_label');
+	let cityListLabel          = document.getElementById('city-list-label');
+	let countryListLabel       = document.getElementById('country-list-label');
+	let languageListLabel      = document.getElementById('language-list-label');
+	let latInputLabel          = document.getElementById('lat-input-label');
+	let locationLatitudeLabel  = document.getElementById('location-latitude-label');
+	let locationLongitudeLabel = document.getElementById('location-longitude-label');
+	let locationMapLabel       = document.getElementById('location-map-label');
+	let lonInputLabel          = document.getElementById('lon-input-label');
+	let madhabListLabel        = document.getElementById('madhab-list-label');
+	let methodListLabel        = document.getElementById('method-list-label');
+
+	let bgColorList            = document.getElementById('bg-color-list');
+	let colorList              = document.getElementById('color-list');
+	let fontSizeList           = document.getElementById('font-size-list');
+
+	let bgColorListLabel       = document.getElementById('bg-color-list-label');
+	let colorListLabel         = document.getElementById('color-list-label');
+	let fontSizeListLabel      = document.getElementById('font-size-list-label');
+
 
 	var currentLanguage;
 	let currentPeriod = periods[defaultPeriod];
@@ -95,11 +102,11 @@ window.onload = ()=>{
 	function showPosition(lat, lon)
 	{
 		mapHref = `https://www.google.com/maps/@${lat},${lon},${mapZoom}z`
-		document.getElementById('location_latitude_label').textContent = translations[currentLanguage]['latitude']
-		document.getElementById('location_latitude').textContent = latitude
-		document.getElementById('location_longitude_label').textContent = translations[currentLanguage]['longitude']
-		document.getElementById('location_longitude').textContent = longitude
-		document.getElementById('location_map_link').href = mapHref
+		document.getElementById('location-latitude-label').textContent = translations[currentLanguage]['latitude']
+		document.getElementById('location-latitude').textContent = latitude
+		document.getElementById('location-longitude-label').textContent = translations[currentLanguage]['longitude']
+		document.getElementById('location-longitude').textContent = longitude
+		document.getElementById('location-map-link').href = mapHref
 	}
 
 	function setLocation(){
@@ -272,29 +279,35 @@ window.onload = ()=>{
 
 	function setLabels(language)
 	{
+		bgColorListLabel.textContent       = translations[language][bgColorListLabel.id];
+		colorListLabel.textContent         = translations[language][colorListLabel.id];
+		fontSizeListLabel.textContent      = translations[language][fontSizeListLabel.id];
+
 		cityListLabel.textContent          = translations[language][cityListLabel.id];
 		countryListLabel.textContent       = translations[language][countryListLabel.id];
 		getLocationBtn.textContent         = translations[language][getLocationBtn.id];
 		header.textContent                 = translations[language][header.id];
 		languageListLabel.textContent      = translations[language][languageListLabel.id];
 		latInputLabel.textContent          = translations[language][latInputLabel.id];
-		locationHeader.textContent         = translations[language][location_header.id];
+		locationHeader.textContent         = translations[language][locationHeader.id];
 		locationLatitudeLabel.textContent  = translations[language][locationLatitudeLabel.id];
 		locationLongitudeLabel.textContent = translations[language][locationLongitudeLabel.id];
-		locationMapLabel.textContent       = translations[language][location_map_label.id];
+		locationMapLabel.textContent       = translations[language][locationMapLabel.id];
 		locationSettingsHeader.textContent = translations[language][locationSettingsHeader.id];
 		lonInputLabel.textContent          = translations[language][lonInputLabel.id];
 		madhabListLabel.textContent        = translations[language][madhabListLabel.id];
 		methodListLabel.textContent        = translations[language][methodListLabel.id];
 		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
 		settingsHeader.textContent         = translations[language][settingsHeader.id];
-		versionFooter.textContent          = version;
-		versionInfo.textContent            = version;
 	}
 
 	function fillSelects()
 	{
+		createOptions(fontSizeList, fontSizes, defaultFontSize);
+		createOptions(colorList, colors, defaultColor);
+		createOptions(bgColorList, bgColors, defaultBgColor);
 		createOptions(languageList, languages, defaultLanguage);
+
 		createOptions(madhabList, madhabs, defaultMadhab);
 		createOptions(methodList, methods, defaultMethod);
 	}
@@ -330,42 +343,70 @@ window.onload = ()=>{
 	function setColor(color)
 	{
 		document.documentElement.style.setProperty('--set-color', color);
-		localStorage.setItem('color', color);
+
+		if (color != defaultColor)
+		{
+			localStorage.setItem('color', color);
+		}
+		else
+		{
+			localStorage.removeItem('color')
+		}
+
 		closeNavs();
 	}
 
-	async function setBgColor(bgColor)
+	function setBgColor(bgColor)
 	{
 		document.documentElement.style.setProperty('--set-bg-color', bgColor);
-		localStorage.setItem('bgColor', bgColor);
+
+		if (bgColor != defaultBgColor)
+		{
+			localStorage.setItem('bgColor', bgColor);
+		}
+		else
+		{
+			localStorage.removeItem('bgColor')
+		}
+
 		closeNavs();
 	}
 
-	async function setFontSize(fontSize)
+	function setFontSize(fontSize)
 	{
 		document.documentElement.style.setProperty('--set-font-size', fontSize)
-		localStorage.setItem('fontSize', fontSize);
-		closeNavs();
-	}
 
-	function setFontFamily(fontFamily)
-	{
-		document.documentElement.style.setProperty('--set-font-family', fontFamily);
-		localStorage.setItem('fontFamily', fontFamily);
+		if (fontSize != defaultFontSize)
+		{
+			localStorage.setItem('fontSize', fontSize);
+		}
+		else
+		{
+			localStorage.removeItem('fontSize')
+		}
+
 		closeNavs();
 	}
 
 	function resetSettings()
 	{
 		// Reset selection list values
-		methodList.value   = defaultMethod;
-		madhabList.value   = defaultMadhab;
+		bgColorList.value  = defaultBgColor;
+		colorList.value    = defaultColor;
+		fontSizeList.value = defaultFontSize;
 		languageList.value = defaultLanguage;
 
+		methodList.value   = defaultMethod;
+		madhabList.value   = defaultMadhab;
+
 		// Propagate reset settings
+		bgColorList.dispatchEvent(new Event('change', {'bubbles': true}));
+		colorList.dispatchEvent(new Event('change', {'bubbles': true}));
+		fontSizeList.dispatchEvent(new Event('change', {'bubbles': true}));
+		languageList.dispatchEvent(new Event('change', {'bubbles': true}));
+
 		methodList.dispatchEvent(new Event('change', {'bubbles': true}));
 		madhabList.dispatchEvent(new Event('change', {'bubbles': true}));
-		languageList.dispatchEvent(new Event('change', {'bubbles': true}));
 	}
 
 	function closeNavs()
@@ -410,10 +451,9 @@ window.onload = ()=>{
 	async function fetchLangHTML(language, file)
 	{
 		result = ''
-		path = 'languages/'+language+'/'+file+'.html'
-		await fetch(path).then(data=>data.text()).then(html=>{
-			result = html
-		})
+		console.log(result)
+		path = 'languages/' + language + '/' + file + '.php?' + Date.now()
+		await fetch(path).then(data => data.text()).then(html => {result = html})
 		return result
 	}
 
@@ -488,7 +528,7 @@ window.onload = ()=>{
 	{
 		timeRow = document.createElement('tr');
 			td = document.createElement('td');
-			td.classList = 'date_cell'
+			td.classList = 'date-cell'
 			td.innerHTML = day;
 			timeRow.appendChild(td);
 		createTableCells(timeRow, prayerTimes);
