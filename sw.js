@@ -1,8 +1,9 @@
 importScripts('/app-config.php');
 
 const version = self.EASY_PRAYER_CONFIG?.version ?? 'dev';
-const APP_SHELL_CACHE = `easy-prayer-app-shell-v${version}`;
-const RUNTIME_CACHE = `easy-prayer-runtime-v${version}`;
+const CACHE_REVISION = 'pwa-icons-v2';
+const APP_SHELL_CACHE = `easy-prayer-app-shell-v${version}-${CACHE_REVISION}`;
+const RUNTIME_CACHE = `easy-prayer-runtime-v${version}-${CACHE_REVISION}`;
 
 const staticContentToCache = [
 	'app.js',
@@ -10,6 +11,7 @@ const staticContentToCache = [
 	'css/easy_prayer.css',
 	'css/rb.css',
 	'css/fonts/rb.woff',
+	'css/icons/apple-touch-icon.png',
 	'css/icons/easy_prayer_128x128.png',
 	'css/icons/easy_prayer_144x144.png',
 	'css/icons/easy_prayer_152x152.png',
@@ -21,6 +23,8 @@ const staticContentToCache = [
 	'css/icons/easy_prayer_64x64.png',
 	'css/icons/easy_prayer_72x72.png',
 	'css/icons/easy_prayer_96x96.png',
+	'css/icons/easy_prayer_maskable_192x192.png',
+	'css/icons/easy_prayer_maskable_512x512.png',
 	'css/icons/loading.gif',
 	'easy_prayer.json',
 	'favicon.ico',

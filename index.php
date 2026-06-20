@@ -24,7 +24,7 @@
 	<meta name="theme-color" content="<?= e($color) ?>">
 	<link rel="canonical" href="<?= e($canonical) ?>">
 	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css">
-	<link rel="apple-touch-icon" href="/css/icons/easy_prayer_96x96.png">
+	<link rel="apple-touch-icon" href="/css/icons/apple-touch-icon.png">
 	<link rel="manifest" href="/easy_prayer.json">
 	<script type="text/javascript">
 		window.appConfig = {
