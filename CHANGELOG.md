@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.4 - 2026-06-20
+
+- Added manifest link cache-busting and versioned app script loading.
+- Improved service worker auto-activation and Easy Prayer cache cleanup.
+- Added startup service worker update checks with a one-time reload guard.
+- Documented PWA update behavior and launcher icon cache limits.
+
 ## v1.0.3 - 2026-06-20
 
 - Moved the canonical app metadata and version source back to `app_config.json`.

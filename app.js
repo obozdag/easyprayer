@@ -1,6 +1,7 @@
 if ('serviceWorker' in navigator)
 {
 	const version = window.appConfig?.version ?? String(Date.now());
+	const reloadKey = `easyPrayerReloadedFor-${version}`;
 	let refreshing = false;
 
 	function getUpdateBannerElements()
@@ -38,6 +39,22 @@ if ('serviceWorker' in navigator)
 		});
 	}
 
+	function hasReloadedForVersion()
+	{
+		try {
+			return sessionStorage.getItem(reloadKey) === '1';
+		} catch (error) {
+			return false;
+		}
+	}
+
+	function markReloadedForVersion()
+	{
+		try {
+			sessionStorage.setItem(reloadKey, '1');
+		} catch (error) {}
+	}
+
 	function registerServiceWorker()
 	{
 		navigator.serviceWorker.register(`/sw.js?v=${encodeURIComponent(version)}`).then(registration => {
@@ -51,6 +68,8 @@ if ('serviceWorker' in navigator)
 				trackInstallingWorker(registration.installing);
 			});
 
+			registration.update().catch(() => {});
+
 			window.setInterval(() => {
 				registration.update().catch(() => {});
 			}, 60 * 60 * 1000);
@@ -63,6 +82,12 @@ if ('serviceWorker' in navigator)
 		}
 
 		refreshing = true;
+
+		if (hasReloadedForVersion()) {
+			return;
+		}
+
+		markReloadedForVersion();
 		window.location.reload();
 	});
 

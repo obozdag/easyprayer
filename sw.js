@@ -3,11 +3,12 @@ importScripts('/app-config.php');
 const version = self.EASY_PRAYER_CONFIG?.version ?? 'dev';
 const CACHE_REVISION = `v${version}`;
 const ASSET_VERSION = `v=${version}`;
+const CACHE_PREFIX = 'easy-prayer-';
 const APP_SHELL_CACHE = `easy-prayer-app-shell-${CACHE_REVISION}`;
 const RUNTIME_CACHE = `easy-prayer-runtime-${CACHE_REVISION}`;
 
 const staticContentToCache = [
-	'app.js',
+	`app.js?${ASSET_VERSION}`,
 	'app-config.php',
 	'css/easy_prayer.css',
 	'css/rb.css',
@@ -56,6 +57,11 @@ function isCacheableRequest(request)
 function canStoreResponse(response)
 {
 	return response && response.ok;
+}
+
+function isEasyPrayerCache(key)
+{
+	return key.startsWith(CACHE_PREFIX);
 }
 
 function storeResponse(cache, key, response)
@@ -113,7 +119,7 @@ self.addEventListener('activate', event => {
 		caches.keys()
 			.then(keys => Promise.all(
 				keys
-					.filter(key => key !== APP_SHELL_CACHE && key !== RUNTIME_CACHE)
+					.filter(key => isEasyPrayerCache(key) && key !== APP_SHELL_CACHE && key !== RUNTIME_CACHE)
 					.map(key => caches.delete(key)),
 			))
 			.then(() => self.clients.claim()),

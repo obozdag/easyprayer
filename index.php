@@ -45,7 +45,7 @@
 	<script defer src="/js/lang.js"></script>
 	<script defer src="/js/settings.js"></script>
 	<script defer src="/js/easyprayer.js"></script>
-	<script defer src="/app.js"></script>
+	<script defer src="/app.js<?= e($asset_query) ?>"></script>
 </head>
 <body>
 	<div id="update-banner" class="update-banner" hidden>
