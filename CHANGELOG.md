@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.1 - 2026-06-20
+
+- Fixed PWA launcher icon safe-area handling with separate padded maskable icons.
+- Added a dedicated iOS apple touch icon and kept normal `any` icons separate.
+- Added `VERSION` as the canonical app version source.
+- Synced service worker cache revision and manifest/icon cache-busting with the app version.
+
 ## v1.0.0 - 2026-06-14
 
 - Added a single application config source for program metadata and versioning.

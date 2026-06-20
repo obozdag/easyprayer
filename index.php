@@ -2,8 +2,10 @@
 	$app_config  = json_decode((string) file_get_contents(__DIR__ . '/app_config.json'), true);
 	$app_config  = is_array($app_config) ? $app_config : [];
 	$prg_name    = $app_config['programName'] ?? 'Easy Prayer';
-	$version     = $app_config['version'] ?? 'dev';
+	$version     = trim((string) file_get_contents(__DIR__ . '/VERSION'));
+	$version     = $version !== '' ? $version : 'dev';
 	$version_tag = $version === 'dev' ? 'dev' : 'v' . $version;
+	$asset_query = $version === 'dev' ? '' : '?v=' . rawurlencode($version);
 	$color       = $app_config['color'] ?? 'steelblue';
 	$canonical   = $app_config['canonicalUrl'] ?? 'https://prayer.fklavye.net';
 	$repository  = $app_config['repositoryUrl'] ?? 'https://github.com/obozdag/easyprayer';
@@ -24,8 +26,8 @@
 	<meta name="theme-color" content="<?= e($color) ?>">
 	<link rel="canonical" href="<?= e($canonical) ?>">
 	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css">
-	<link rel="apple-touch-icon" href="/css/icons/apple-touch-icon.png">
-	<link rel="manifest" href="/easy_prayer.json">
+	<link rel="apple-touch-icon" href="/css/icons/apple-touch-icon.png<?= e($asset_query) ?>">
+	<link rel="manifest" href="/easy_prayer.json<?= e($asset_query) ?>">
 	<script type="text/javascript">
 		window.appConfig = {
 			programName: '<?= e($prg_name) ?>',

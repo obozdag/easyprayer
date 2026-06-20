@@ -1,9 +1,10 @@
 importScripts('/app-config.php');
 
 const version = self.EASY_PRAYER_CONFIG?.version ?? 'dev';
-const CACHE_REVISION = 'pwa-icons-v2';
-const APP_SHELL_CACHE = `easy-prayer-app-shell-v${version}-${CACHE_REVISION}`;
-const RUNTIME_CACHE = `easy-prayer-runtime-v${version}-${CACHE_REVISION}`;
+const CACHE_REVISION = `v${version}`;
+const ASSET_VERSION = `v=${version}`;
+const APP_SHELL_CACHE = `easy-prayer-app-shell-${CACHE_REVISION}`;
+const RUNTIME_CACHE = `easy-prayer-runtime-${CACHE_REVISION}`;
 
 const staticContentToCache = [
 	'app.js',
@@ -11,22 +12,22 @@ const staticContentToCache = [
 	'css/easy_prayer.css',
 	'css/rb.css',
 	'css/fonts/rb.woff',
-	'css/icons/apple-touch-icon.png',
-	'css/icons/easy_prayer_128x128.png',
-	'css/icons/easy_prayer_144x144.png',
-	'css/icons/easy_prayer_152x152.png',
-	'css/icons/easy_prayer_192x192.png',
-	'css/icons/easy_prayer_32x32.png',
-	'css/icons/easy_prayer_384x384.png',
-	'css/icons/easy_prayer_48x48.png',
-	'css/icons/easy_prayer_512x512.png',
-	'css/icons/easy_prayer_64x64.png',
-	'css/icons/easy_prayer_72x72.png',
-	'css/icons/easy_prayer_96x96.png',
-	'css/icons/easy_prayer_maskable_192x192.png',
-	'css/icons/easy_prayer_maskable_512x512.png',
+	`css/icons/apple-touch-icon.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_128x128.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_144x144.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_152x152.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_192x192.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_32x32.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_384x384.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_48x48.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_512x512.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_64x64.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_72x72.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_96x96.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_maskable_192x192.png?${ASSET_VERSION}`,
+	`css/icons/easy_prayer_maskable_512x512.png?${ASSET_VERSION}`,
 	'css/icons/loading.gif',
-	'easy_prayer.json',
+	`easy_prayer.json?${ASSET_VERSION}`,
 	'favicon.ico',
 	'index.php',
 	'js/adhan.umd.js',
