@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.2 - 2026-06-20
+
+- Fixed PWA splash icon color by keeping maskable icons on a white canvas with the original blue logo.
+- Preserved the existing launcher safe-area padding and normal/maskable icon separation.
+
 ## v1.0.1 - 2026-06-20
 
 - Fixed PWA launcher icon safe-area handling with separate padded maskable icons.
