@@ -8,22 +8,46 @@ if ('serviceWorker' in navigator)
 	{
 		return {
 			banner: document.getElementById('update-banner'),
-			reloadButton: document.getElementById('update-banner-reload'),
+			text: document.getElementById('update-banner-text'),
 		};
+	}
+
+	function getCurrentLanguage()
+	{
+		try {
+			const storedLanguage = localStorage.getItem('language');
+
+			if (storedLanguage) {
+				return storedLanguage;
+			}
+		} catch (error) {}
+
+		return typeof window.defaultLanguage === 'string' ? window.defaultLanguage : 'en';
+	}
+
+	function translate(key)
+	{
+		const language = getCurrentLanguage();
+		const fallbackLanguage = typeof window.defaultLanguage === 'string' ? window.defaultLanguage : 'en';
+		const source = window.translations ?? {};
+
+		return source[language]?.[key]
+			?? source[fallbackLanguage]?.[key]
+			?? source.en?.[key]
+			?? key;
 	}
 
 	function showUpdateBanner(worker)
 	{
-		const { banner, reloadButton } = getUpdateBannerElements();
+		const { banner, text } = getUpdateBannerElements();
 
-		if (!banner || !reloadButton) {
+		if (!banner || !text) {
 			return;
 		}
 
+		text.textContent = translate('updating-app');
 		banner.hidden = false;
-		reloadButton.onclick = () => {
-			worker.postMessage({ type: 'SKIP_WAITING' });
-		};
+		worker.postMessage({ type: 'SKIP_WAITING' });
 	}
 
 	function trackInstallingWorker(worker)

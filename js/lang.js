@@ -23,6 +23,9 @@ translations = {
 		'method-list-label'        : 'Metod',
 		'right-reset-btn'          : 'Reset',
 		'settings-header'          : 'Ayarlar',
+		'update-available'         : 'Yeni sürüm hazır.',
+		'updating-app'             : 'Uygulama güncelleniyor…',
+		'reload-update'            : 'Yenile',
 		'methods' : {
 			'MuslimWorldLeague': 'Dünya Müslüman Birliği',
 			'Turkey': 'Diyanet İşleri Başkanlığı, Türkiye',
@@ -99,6 +102,9 @@ translations = {
 		'method-list-label'        : 'Method',
 		'right-reset-btn'          : 'Reset',
 		'settings-header'          : 'Settings',
+		'update-available'         : 'New version available.',
+		'updating-app'             : 'Updating app…',
+		'reload-update'            : 'Reload',
 		'methods' : {
 			'MuslimWorldLeague': 'Muslim World League',
 			'Turkey': 'Presidency of Religious Affairs, Turkey',

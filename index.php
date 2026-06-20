@@ -49,8 +49,7 @@
 </head>
 <body>
 	<div id="update-banner" class="update-banner" hidden>
-		<span id="update-banner-text">New version available.</span>
-		<button type="button" id="update-banner-reload" class="btn update-banner-btn">Reload</button>
+		<span id="update-banner-text"></span>
 	</div>
 	<nav id="nav-top">
 		<button type="button" id="open-nav-left" class="nav-top-btn rb-map-location-dot" title="Nav Left" aria-label="Open location settings"></button>

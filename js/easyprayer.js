@@ -40,6 +40,7 @@ window.onload = ()=>{
 	let lonInputLabel          = document.getElementById('lon-input-label');
 	let madhabListLabel        = document.getElementById('madhab-list-label');
 	let methodListLabel        = document.getElementById('method-list-label');
+	let updateBannerText      = document.getElementById('update-banner-text');
 
 	let bgColorList            = document.getElementById('bg-color-list');
 	let colorList              = document.getElementById('color-list');
@@ -301,6 +302,10 @@ window.onload = ()=>{
 		methodListLabel.textContent        = translations[language][methodListLabel.id];
 		rightResetBtn.textContent          = translations[language][rightResetBtn.id];
 		settingsHeader.textContent         = translations[language][settingsHeader.id];
+
+		if (updateBannerText) {
+			updateBannerText.textContent = translations[language]['updating-app'];
+		}
 	}
 
 	function fillSelects()

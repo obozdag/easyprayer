@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.5 - 2026-06-20
+
+- Localized the PWA update banner through `js/lang.js`.
+- Removed the manual Reload button from the automatic reload flow.
+- Preserved PWA cache revision and manifest/icon version sync.
+
 ## v1.0.4 - 2026-06-20
 
 - Added manifest link cache-busting and versioned app script loading.
