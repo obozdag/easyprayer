@@ -2,8 +2,9 @@
 	$app_config  = json_decode((string) file_get_contents(__DIR__ . '/app_config.json'), true);
 	$app_config  = is_array($app_config) ? $app_config : [];
 	$prg_name    = $app_config['programName'] ?? 'Easy Prayer';
-	$version     = trim((string) file_get_contents(__DIR__ . '/VERSION'));
-	$version     = $version !== '' ? $version : 'dev';
+	$version     = isset($app_config['version']) && trim((string) $app_config['version']) !== ''
+		? trim((string) $app_config['version'])
+		: 'dev';
 	$version_tag = $version === 'dev' ? 'dev' : 'v' . $version;
 	$asset_query = $version === 'dev' ? '' : '?v=' . rawurlencode($version);
 	$color       = $app_config['color'] ?? 'steelblue';

@@ -8,8 +8,9 @@ if (!is_array($config)) {
 	$config = [];
 }
 
-$version = trim((string) file_get_contents(__DIR__ . '/VERSION'));
-$config['version'] = $version !== '' ? $version : 'dev';
+$config['version'] = isset($config['version']) && trim((string) $config['version']) !== ''
+	? trim((string) $config['version'])
+	: 'dev';
 
 header('Content-Type: application/javascript; charset=utf-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');

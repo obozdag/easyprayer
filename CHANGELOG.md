@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.3 - 2026-06-20
+
+- Moved the canonical app metadata and version source back to `app_config.json`.
+- Removed the separate plain-text version file.
+- Kept PWA cache revision and manifest/icon cache-busting synced with the app version.
+
 ## v1.0.2 - 2026-06-20
 
 - Fixed PWA splash icon color by keeping maskable icons on a white canvas with the original blue logo.
@@ -9,7 +15,7 @@
 
 - Fixed PWA launcher icon safe-area handling with separate padded maskable icons.
 - Added a dedicated iOS apple touch icon and kept normal `any` icons separate.
-- Added `VERSION` as the canonical app version source.
+- Added a canonical app version source.
 - Synced service worker cache revision and manifest/icon cache-busting with the app version.
 
 ## v1.0.0 - 2026-06-14
