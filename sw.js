@@ -28,7 +28,7 @@ const staticContentToCache = [
 	`css/icons/easy_prayer_maskable_192x192.png?${ASSET_VERSION}`,
 	`css/icons/easy_prayer_maskable_512x512.png?${ASSET_VERSION}`,
 	'css/icons/loading.gif',
-	`easy_prayer.json?${ASSET_VERSION}`,
+	'manifest.php',
 	'favicon.ico',
 	'index.php',
 	'js/adhan.umd.js',

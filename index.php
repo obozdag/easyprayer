@@ -28,7 +28,7 @@
 	<link rel="canonical" href="<?= e($canonical) ?>">
 	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css">
 	<link rel="apple-touch-icon" href="/css/icons/apple-touch-icon.png<?= e($asset_query) ?>">
-	<link rel="manifest" href="/easy_prayer.json<?= e($asset_query) ?>">
+	<link rel="manifest" href="/manifest.php">
 	<script type="text/javascript">
 		window.appConfig = {
 			programName: '<?= e($prg_name) ?>',
