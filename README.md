@@ -1,4 +1,4 @@
-# Easy Prayer v1.0.5
+# Easy Prayer v1.0.7
 
 Easy Prayer is a progressive web application. It shows exact prayer times.
 
@@ -17,7 +17,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Maintenance
 
-`app_config.json` is the canonical application metadata source for the app name, version, color, canonical URL, and repository URL. When releasing, keep `app_config.json.version`, the visible app version, service worker cache revision, and manifest/icon cache-busting query values in sync.
+`app_config.json` is the canonical application metadata source for the app name, application version, icon version, color, canonical URL, and repository URL. When releasing, keep `app_config.json.version`, the visible app version, and service worker cache revision in sync. Manifest icon URLs use the separate `iconVersion`, which must change only when the icon artwork actually changes; changing it prompts Android/Chrome users to review an app identity update.
 
 The service worker tries to activate new versions automatically and cleans up old Easy Prayer app-shell/runtime caches. App content, the manifest request, and cached icon assets can be refreshed through the versioned URLs, but home-screen launcher icon replacement is controlled by Android/iOS and may not happen immediately for an existing install. Removing and reinstalling the PWA is a testing or last-resort step, not the normal update path.
 

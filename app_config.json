@@ -1,6 +1,7 @@
 {
 	"programName": "Easy Prayer",
-	"version": "1.0.6",
+	"version": "1.0.7",
+	"iconVersion": "1.0.6",
 	"color": "steelblue",
 	"canonicalUrl": "https://prayer.fklavye.net",
 	"repositoryUrl": "https://github.com/obozdag/easyprayer"
