@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.2 - 2026-09-13
+
+- Shortened Turkish and English month names to three letters so the date column stays compact, especially on mobile screens.
+
 ## v1.1.1 - 2026-09-13
 
 - Versioned every CSS and JavaScript asset URL so an older service worker cannot combine the new page with stale application code.
