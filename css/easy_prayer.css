@@ -73,6 +73,30 @@ h4, h5{
 h5 {
 	font-size: 1rem;
 }
+.prayer-page-header {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+	gap: .75rem;
+	align-items: center;
+}
+.location-map-link {
+	display: flex;
+	min-width: 0;
+	align-items: center;
+	justify-content: flex-end;
+	gap: .35rem;
+	white-space: nowrap;
+}
+.location-map-link[hidden] {
+	display: none;
+}
+.location-map-link span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.location-map-link i {
+	flex: 0 0 auto;
+}
 #prayer-country {
 	/*font-size: 1rem;*/
 }

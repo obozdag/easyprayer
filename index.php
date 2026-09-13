@@ -169,7 +169,13 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h4 id="header"></h4>
+		<div class="prayer-page-header">
+			<h4 id="header"></h4>
+			<a id="location-map-link" class="location-map-link" href="" target="_blank" rel="noopener" hidden>
+				<span id="location-map-label"></span>
+				<i class="rb-globe" aria-hidden="true"></i>
+			</a>
+		</div>
 		<div id="prayer-times">
 			<div id="location-empty-state" class="location-empty-state" hidden>
 				<p id="location-empty-text"></p>
@@ -177,23 +183,6 @@
 					<button type="button" class="empty-state-btn" id="empty-use-location-btn"></button>
 					<button type="button" class="empty-state-btn" id="empty-choose-city-btn"></button>
 				</div>
-			</div>
-			<div id="prayer-place">
-				<h5>
-					<span id="location-header"></span>:<br>
-					<span class="location-info">
-						<span id="location-latitude-label"></span>: <span id="location-latitude"></span><br>
-						<span id="location-longitude-label"></span>: <span id="location-longitude"></span><br>
-						<a id="location-map-link" href="" target="_blank" rel="noopener">
-							<span id="location-map-label"></span>
-							<i class="rb-globe"></i>
-						</a>
-					</span>
-				</h5>
-				<h5>
-					<small><span id="location-city"></span></small>
-					<small><span id="location-country"></span></small>
-				</h5>
 			</div>
 			<table id="prayer-table">
 			</table>

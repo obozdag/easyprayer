@@ -106,7 +106,7 @@ window.addEventListener('load', () => {
 		$('location-empty-text').textContent = t('location-empty');
 		elements.emptyUseLocationBtn.textContent = t('get-location-btn');
 		elements.emptyChooseCityBtn.textContent = t('choose-city');
-		$('location-map-label').textContent = activeLocation?.name || t('location-map-label');
+		setHeaderLocation();
 		if (elements.updateBannerText) elements.updateBannerText.textContent = t('updating-app');
 		if (elements.countryList.options.length > 0 && elements.countryList.options[0].value === '') {
 			elements.countryList.options[0].textContent = t('all-countries');
@@ -460,21 +460,30 @@ window.addEventListener('load', () => {
 	function showLoading() { elements.locationLoading.className = 'visible'; }
 	function hideLoading() { elements.locationLoading.className = 'invisible'; }
 
+	function setHeaderLocation() {
+		const mapLink = $('location-map-link');
+		if (!activeLocation) {
+			mapLink.hidden = true;
+			mapLink.removeAttribute('title');
+			return;
+		}
+		const locationName = activeLocation.type === 'current' ? t('current-location') : activeLocation.name;
+		$('location-map-label').textContent = locationName;
+		mapLink.title = locationName;
+		mapLink.hidden = false;
+	}
+
 	function showEmptyState() {
-		elements.locationEmptyState.hidden = false; $('prayer-place').hidden = true;
+		elements.locationEmptyState.hidden = false; $('location-map-link').hidden = true;
 		elements.prayerTable.hidden = true; elements.prayerTable.replaceChildren();
 	}
 
 	function showPosition() {
 		if (!activeLocation) return;
-		elements.locationEmptyState.hidden = true; $('prayer-place').hidden = false; elements.prayerTable.hidden = false;
+		elements.locationEmptyState.hidden = true; elements.prayerTable.hidden = false;
 		elements.latInput.value = activeLocation.latitude; elements.lonInput.value = activeLocation.longitude;
-		$('location-latitude').textContent = activeLocation.latitude;
-		$('location-longitude').textContent = activeLocation.longitude;
-		$('location-map-label').textContent = activeLocation.name;
-		$('location-city').textContent = activeLocation.admin;
-		$('location-country').textContent = activeLocation.country;
 		$('location-map-link').href = `https://www.google.com/maps/@${activeLocation.latitude},${activeLocation.longitude},${mapZoom}z`;
+		setHeaderLocation();
 	}
 
 	function getPrayerTimes(dayMoment) {

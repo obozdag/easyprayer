@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.1 - 2026-09-13
+
+- Moved the selected city and map link beside the prayer-times heading.
+- Removed the latitude, longitude, administrative area, and country rows from the main view to save vertical space.
+- Truncated long city names responsively while preserving the full name as the link title.
+
 ## v1.3.0 - 2026-09-13
 
 - Added optional minute adjustments for every displayed prayer time.
