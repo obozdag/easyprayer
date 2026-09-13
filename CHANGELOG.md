@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.1 - 2026-09-13
+
+- Versioned every CSS and JavaScript asset URL so an older service worker cannot combine the new page with stale application code.
+- Fixed the resulting startup failure that prevented city controls and the prayer sound test button from working after the v1.1.0 update.
+
 ## v1.1.0 - 2026-09-13
 
 - Added local city autocomplete backed by an embedded GeoNames SQLite database with more than 34,000 cities.

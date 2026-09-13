@@ -142,7 +142,7 @@ window.addEventListener('load', () => {
 		elements.prayerSoundList.addEventListener('change', () => {
 			localStorage.setItem('prayerSound', elements.prayerSoundList.value); showCustomSoundInput();
 		});
-		elements.testPrayerSoundBtn.addEventListener('click', () => playPrayerSound(true));
+		elements.testPrayerSoundBtn.addEventListener('click', testPrayerSound);
 		elements.customSoundFile.addEventListener('change', saveCustomSound);
 		elements.monthBtn.addEventListener('click', () => setPeriod('month'));
 		elements.weekBtn.addEventListener('click', () => setPeriod('week'));
@@ -466,6 +466,10 @@ window.addEventListener('load', () => {
 		localStorage.setItem('prayerSoundEnabled', enabled ? '1' : '0');
 		elements.soundMessage.textContent = t(enabled ? 'sound-enabled' : 'sound-disabled');
 		if (enabled) playPrayerSound(true);
+	}
+
+	async function testPrayerSound() {
+		if (await playPrayerSound(true)) elements.soundMessage.textContent = t('sound-tested');
 	}
 
 	function showCustomSoundInput() {

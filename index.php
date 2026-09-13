@@ -26,7 +26,7 @@
 	<meta name="apple-mobile-web-app-status-bar" content="<?= e($color) ?>">
 	<meta name="theme-color" content="<?= e($color) ?>">
 	<link rel="canonical" href="<?= e($canonical) ?>">
-	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css">
+	<link rel="stylesheet" type="text/css" href="/css/easy_prayer.css<?= e($asset_query) ?>">
 	<link rel="apple-touch-icon" href="/css/icons/apple-touch-icon.png<?= e($asset_query) ?>">
 	<link rel="manifest" href="/manifest.php">
 	<script type="text/javascript">
@@ -38,13 +38,13 @@
 		var prg_name = window.appConfig.programName;
 		var version  = window.appConfig.versionLabel;
 	</script>
-	<script defer src="/js/adhan.umd.js"></script>
-	<script defer src="/js/moment-with-locales.min.js"></script>
-	<script defer src="/js/moment-timezone-with-data.js"></script>
-	<script defer src="/js/swipe.js"></script>
-	<script defer src="/js/lang.js"></script>
-	<script defer src="/js/settings.js"></script>
-	<script defer src="/js/easyprayer.js"></script>
+	<script defer src="/js/adhan.umd.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/moment-with-locales.min.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/moment-timezone-with-data.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/swipe.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/lang.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/settings.js<?= e($asset_query) ?>"></script>
+	<script defer src="/js/easyprayer.js<?= e($asset_query) ?>"></script>
 	<script defer src="/app.js<?= e($asset_query) ?>"></script>
 </head>
 <body>
