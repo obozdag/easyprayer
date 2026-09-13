@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.2 - 2026-09-13
+
+- Aligned side-panel headings with their close buttons and removed the heading and prayer-sound separators.
+- Normalized spacing between settings and added a high-contrast custom checked state for the prayer-sound checkbox.
+
 ## v1.2.1 - 2026-09-13
 
 - Stacked labels above their controls in both side panels so longer translations remain readable without overlapping form fields.

@@ -112,7 +112,6 @@
 				<label id="madhab-list-label"></label>
 				<select id="madhab-list"></select>
 			</div>
-			<div class="row"></div>
 			<div class="row">
 				<label id="font-size-list-label"></label>
 				<select id="font-size-list"></select>
@@ -129,7 +128,7 @@
 				<label id="language-list-label"></label>
 				<select id="language-list"></select>
 			</div>
-			<div class="row settings-separator">
+			<div class="row">
 				<label id="prayer-sound-enabled-label" for="prayer-sound-enabled"></label>
 				<input type="checkbox" id="prayer-sound-enabled">
 			</div>
