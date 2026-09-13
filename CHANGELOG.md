@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.3 - 2026-09-13
+
+- Kept automatic geolocation independent from city selection: it now uses the device coordinates directly and displays “Current location”.
+- Reserved city names and city-center coordinates exclusively for locations explicitly chosen through city search.
+
 ## v1.3.2 - 2026-09-13
 
 - Showed the most relevant nearby city from the local database for automatic locations, with “Current location” retained only as a fallback.

@@ -387,7 +387,7 @@ window.addEventListener('load', () => {
 			const option = document.createElement('option');
 			option.value = location.id;
 			option.textContent = location.type === 'current'
-				? `${t('current-location')} — ${location.name}`
+				? t('current-location')
 				: [location.name, location.country].filter(Boolean).join(', ');
 			elements.savedLocations.appendChild(option);
 		});
@@ -414,11 +414,7 @@ window.addEventListener('load', () => {
 	function restoreLocation() {
 		const activeId = localStorage.getItem('activeLocationId');
 		const stored = savedLocationList.find(location => location.id === activeId) || savedLocationList[0];
-		if (stored) {
-			setActiveLocation(stored, false);
-			if (stored.type === 'current' && isGenericCurrentLocationName(stored.name)) resolveCurrentCity(stored);
-			return;
-		}
+		if (stored) { setActiveLocation(stored, false); return; }
 		const oldLatitude = Number(localStorage.getItem('latitude'));
 		const oldLongitude = Number(localStorage.getItem('longitude'));
 		if (Number.isFinite(oldLatitude) && Number.isFinite(oldLongitude) && localStorage.getItem('latitude') !== null) {
@@ -427,7 +423,7 @@ window.addEventListener('load', () => {
 				latitude: oldLatitude, longitude: oldLongitude,
 				timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', type: 'current',
 			};
-			setActiveLocation(restoredLocation, true); resolveCurrentCity(restoredLocation); return;
+			setActiveLocation(restoredLocation, true); return;
 		}
 		showEmptyState(); getLocation();
 	}
@@ -440,41 +436,16 @@ window.addEventListener('load', () => {
 		});
 	}
 
-	async function findNearestCity(latitude, longitude) {
-		try {
-			const appVersion = window.appConfig?.version || 'dev';
-			const response = await fetch(`/api/cities.php?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}&v=${encodeURIComponent(appVersion)}`);
-			return response.ok ? await response.json() : {};
-		} catch (error) {
-			return {};
-		}
-	}
-
-	function isGenericCurrentLocationName(name) {
-		return !name || Object.values(translations).some(language => language['current-location'] === name);
-	}
-
-	async function resolveCurrentCity(location) {
-		const nearest = await findNearestCity(location.latitude, location.longitude);
-		if (!nearest.name || activeLocation?.id !== location.id
-			|| activeLocation.latitude !== location.latitude || activeLocation.longitude !== location.longitude) return;
-		setActiveLocation({
-			...location, name: nearest.name, admin: nearest.admin || '', country: nearest.country || '',
-			countryCode: nearest.countryCode || '', timezone: nearest.timezone || location.timezone,
-		}, true);
-	}
-
 	async function getLocation() {
 		showLoading(); elements.locationMessage.textContent = '';
 		try {
 			const position = await getPosition();
 			const latitude = Number(position.coords.latitude.toFixed(locationPrecision));
 			const longitude = Number(position.coords.longitude.toFixed(locationPrecision));
-			const nearest = await findNearestCity(latitude, longitude);
 			setActiveLocation({
-				id: 'current-location', name: nearest.name || t('current-location'), admin: nearest.admin || '',
-				country: nearest.country || '', countryCode: nearest.countryCode || '', latitude, longitude,
-				timezone: nearest.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', type: 'current',
+				id: 'current-location', name: t('current-location'), admin: '', country: '', countryCode: '',
+				latitude, longitude,
+				timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', type: 'current',
 			}, true);
 			elements.locationMessage.textContent = t('location-found'); closeNavs();
 		} catch (error) {
@@ -492,9 +463,7 @@ window.addEventListener('load', () => {
 			mapLink.removeAttribute('title');
 			return;
 		}
-		const locationName = activeLocation.type === 'current' && isGenericCurrentLocationName(activeLocation.name)
-			? t('current-location')
-			: activeLocation.name;
+		const locationName = activeLocation.type === 'current' ? t('current-location') : activeLocation.name;
 		$('location-map-label').textContent = locationName;
 		mapLink.title = locationName;
 		mapLink.hidden = false;
