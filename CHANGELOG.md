@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0 - 2026-09-13
+
+- Added complete German interface support, including location, settings, prayer names, calculation methods, sound messages, dates, and program information.
+
 ## v1.1.3 - 2026-09-13
 
 - Cleared stale status messages when changing language so the next sound-test result uses the selected language.

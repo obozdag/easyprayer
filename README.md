@@ -10,7 +10,7 @@ Easy Prayer is a progressive web application. It shows exact prayer times.
 - Optional prayer-time sound alerts and custom sound upload
 - Calculation method selection
 - Asr selection
-- Multi language
+- Turkish, English, and German interfaces
 - Week or month tables
 
 ## City data

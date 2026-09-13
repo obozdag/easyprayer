@@ -39,6 +39,7 @@ const staticContentToCache = [
 	`js/settings.js?${ASSET_VERSION}`,
 	`js/swipe.js?${ASSET_VERSION}`,
 	'languages/en/program_info.php',
+	'languages/de/program_info.php',
 	'languages/tr/program_info.php',
 ];
 

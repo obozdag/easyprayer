@@ -22,6 +22,7 @@ periods = {
 languages = {
 	tr : 'Türkçe',
 	en : 'English',
+	de : 'Deutsch',
 };
 
 madhabs = {
