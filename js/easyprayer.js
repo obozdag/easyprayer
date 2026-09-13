@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
 			'bg-color-list-label', 'city-search-label', 'color-list-label', 'country-list-label',
 			'custom-sound-label', 'font-size-list-label', 'header', 'language-list-label',
 			'lat-input-label', 'location-header', 'location-latitude-label', 'location-longitude-label',
-			'location-map-label', 'location-settings-header', 'lon-input-label', 'madhab-list-label',
+			'location-settings-header', 'lon-input-label', 'madhab-list-label',
 			'method-list-label', 'prayer-sound-enabled-label', 'prayer-sound-list-label',
 			'saved-locations-label', 'settings-header',
 		].forEach(id => {
@@ -102,6 +102,7 @@ window.addEventListener('load', () => {
 		$('location-empty-text').textContent = t('location-empty');
 		elements.emptyUseLocationBtn.textContent = t('get-location-btn');
 		elements.emptyChooseCityBtn.textContent = t('choose-city');
+		$('location-map-label').textContent = activeLocation?.name || t('location-map-label');
 		if (elements.updateBannerText) elements.updateBannerText.textContent = t('updating-app');
 		if (elements.countryList.options.length > 0 && elements.countryList.options[0].value === '') {
 			elements.countryList.options[0].textContent = t('all-countries');
@@ -114,6 +115,8 @@ window.addEventListener('load', () => {
 		elements.languageList.addEventListener('change', () => {
 			currentLanguage = elements.languageList.value;
 			localStorage.setItem('language', currentLanguage);
+			elements.soundMessage.textContent = '';
+			elements.locationMessage.textContent = '';
 			setLabels(); showTimes(); closeNavs();
 		});
 		elements.madhabList.addEventListener('change', () => {
@@ -408,7 +411,8 @@ window.addEventListener('load', () => {
 		elements.latInput.value = activeLocation.latitude; elements.lonInput.value = activeLocation.longitude;
 		$('location-latitude').textContent = activeLocation.latitude;
 		$('location-longitude').textContent = activeLocation.longitude;
-		$('location-city').textContent = [activeLocation.name, activeLocation.admin].filter(Boolean).join(', ');
+		$('location-map-label').textContent = activeLocation.name;
+		$('location-city').textContent = activeLocation.admin;
 		$('location-country').textContent = activeLocation.country;
 		$('location-map-link').href = `https://www.google.com/maps/@${activeLocation.latitude},${activeLocation.longitude},${mapZoom}z`;
 	}

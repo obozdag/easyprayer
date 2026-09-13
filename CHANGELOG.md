@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.3 - 2026-09-13
+
+- Cleared stale status messages when changing language so the next sound-test result uses the selected language.
+- Replaced the generic map-link label with the selected city name while keeping the globe icon and map destination.
+
 ## v1.1.2 - 2026-09-13
 
 - Shortened Turkish and English month names to three letters so the date column stays compact, especially on mobile screens.
