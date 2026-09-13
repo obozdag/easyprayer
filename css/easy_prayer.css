@@ -165,8 +165,8 @@ h5 {
 }
 .settings .row {
 	display: grid;
-	grid-template-columns: 30% 65%;
-	grid-gap: 5px;
+	grid-template-columns: minmax(0, 1fr);
+	grid-gap: .35rem;
 	margin-bottom: 1rem;
 }
 .settings input,
@@ -261,12 +261,15 @@ h5 {
 }
 .settings-message {
 	min-height: 1.2rem;
-	margin: -.35rem 0 .75rem 30%;
+	margin: -.35rem 0 .75rem;
 	font-size: .85rem;
 }
 .settings label {
-	text-align: right;
-	line-height: 2rem;
+	text-align: left;
+	line-height: 1.25;
+}
+.settings label:empty {
+	display: none;
 }
 .settings-header {
 	margin-bottom: 1rem;

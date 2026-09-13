@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1 - 2026-09-13
+
+- Stacked labels above their controls in both side panels so longer translations remain readable without overlapping form fields.
+
 ## v1.2.0 - 2026-09-13
 
 - Added complete German interface support, including location, settings, prayer names, calculation methods, sound messages, dates, and program information.
