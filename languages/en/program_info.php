@@ -11,6 +11,8 @@
 	<li>Lightning fast</li>
 	<li>Auto Location</li>
 	<li>Country and City selection</li>
+	<li>City search and saved cities</li>
+	<li>Optional short prayer-time sound or custom sound file</li>
 	<li>Calculation method selection</li>
 	<li>Asr selection</li>
 	<li>Monthly and weekly time table</li>
@@ -26,6 +28,7 @@
 	<li><i class="rb-bookmark"></i> Delete Bookmark</li>
 	<li><i class="rb-slider"></i> Settings (Select method, asr, language)</li>
 </ul>
+<p><small>City and timezone data is provided by <a target="_blank" rel="noopener" href="https://www.geonames.org/">GeoNames</a> under the CC BY 4.0 license.</small></p>
 <p><small>For feature requests or any bug reports please send email to info at fklavye dot net</small></p>
 <p><small>That is an open source project. You can contribute on <a target="_blank" rel="noopener" href="https://github.com/obozdag/easyprayer">github</a></small></p>
 <p><small><a target="_blank" rel="noopener" href="https://quran.fklavye.net"><i class="logo rb-easyquran"></i> Easy Quran</a> is another open source project to easily read Quran.</small></p>

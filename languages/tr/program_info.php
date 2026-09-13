@@ -10,6 +10,8 @@
 	<li>Hafiftir (Yaklaşık 100KB)</li>
 	<li>Otomatik yer bilgisi</li>
 	<li>Ülke ve şehir seçimi</li>
+	<li>Şehir arama ve şehirleri kaydetme</li>
+	<li>İsteğe bağlı kısa vakit sesi veya özel ses dosyası</li>
 	<li>Hesaplama metodu seçimi</li>
 	<li>İkindi vakti hesabı seçimi</li>
 	<li>Aylık ve haftalık tablolar</li>
@@ -25,6 +27,7 @@
 	<li><i class="rb-bookmark"></i> Yer işaretini sil</li>
 	<li><i class="rb-slider"></i> Ayarlar (Hesap yöntemi, ikindi vakti ve dil seçimi)</li>
 </ul>
+<p><small>Şehir ve saat dilimi verileri <a target="_blank" rel="noopener" href="https://www.geonames.org/">GeoNames</a> tarafından CC BY 4.0 lisansıyla sağlanmaktadır.</small></p>
 <p><small>Özellik ekleme isteği veya hata bildirimi için lütfen info at fklavye nokta net adresine email gönderiniz.</small></p>
 <p><small>Bu açık kaynak kodlu bir projedir. <a target="_blank" rel="noopener" href="https://github.com/obozdag/easyprayer">github</a> üzerinden katkıda bulunabilirsiniz.</small></p>
 <p><small><a target="_blank" rel="noopener" href="https://quran.fklavye.net"><i class="logo rb-easyquran"></i> Easy Quran</a> kolay Kuran okuma programı.</small></p>

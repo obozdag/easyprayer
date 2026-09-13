@@ -117,6 +117,8 @@ h5 {
 	opacity: 1;
 	z-index: 100;
 	transition: .5s;
+	overflow-y: auto;
+	padding-bottom: 5rem;
 }
 #nav-left {
 	left: -70%;
@@ -176,6 +178,91 @@ h5 {
 	border-radius: var(--brs);
 	font-size: 1rem;
 	outline: none;
+}
+.settings input[type="checkbox"] {
+	width: 2rem;
+	height: 2rem;
+	accent-color: var(--set-color);
+}
+.settings input[type="file"] {
+	height: auto;
+	padding: 0;
+	color: white;
+}
+.settings-separator {
+	padding-top: 1rem;
+	border-top: 1px solid rgba(200, 200, 200, .5);
+}
+.city-search-row {
+	position: relative;
+	z-index: 2;
+}
+.city-search-wrap {
+	position: relative;
+}
+.city-suggestions {
+	position: absolute;
+	top: calc(100% + 2px);
+	left: 0;
+	right: 0;
+	max-height: 16rem;
+	overflow-y: auto;
+	background: white;
+	color: #222;
+	border: 1px solid #aaa;
+	border-radius: var(--brs);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+.city-suggestions[hidden],
+.custom-sound-row[hidden],
+.location-empty-state[hidden] {
+	display: none;
+}
+.city-suggestions li {
+	border-bottom: 1px solid #eee;
+}
+.city-suggestions li:last-child {
+	border-bottom: 0;
+}
+.city-suggestions li:hover,
+.city-suggestions li.active,
+.city-option-btn:focus {
+	background: #eef4f9;
+}
+.city-option-btn {
+	display: block;
+	width: 100%;
+	padding: .6rem;
+	background: transparent;
+	color: inherit;
+	border: 0;
+	text-align: left;
+	cursor: pointer;
+}
+.city-option-btn small {
+	display: block;
+	margin-top: .2rem;
+	color: #666;
+}
+.saved-location-controls {
+	display: grid;
+	grid-template-columns: 1fr 2rem;
+	gap: 5px;
+}
+.icon-btn {
+	width: 2rem;
+	height: 2rem;
+	background: transparent;
+	color: white;
+	border: 1px solid white;
+	border-radius: var(--brs);
+	font-size: 1.4rem;
+	cursor: pointer;
+}
+.settings-message {
+	min-height: 1.2rem;
+	margin: -.35rem 0 .75rem 30%;
+	font-size: .85rem;
 }
 .settings label {
 	text-align: right;
@@ -451,6 +538,28 @@ footer a {
 }
 #prayer-times {
 	padding-bottom: 6rem;
+}
+.location-empty-state {
+	margin: 1rem 0;
+	padding: 1rem;
+	border: 1px solid #dee2e6;
+	border-radius: var(--brs);
+	color: #555;
+	line-height: 1.4;
+}
+.location-empty-state div {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem;
+	margin-top: 1rem;
+}
+.empty-state-btn {
+	padding: .5rem .75rem;
+	background: transparent;
+	color: var(--set-color);
+	border: 1px solid var(--set-color);
+	border-radius: var(--brs);
+	cursor: pointer;
 }
 #prayer-table {
 	border-collapse: collapse;

@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.0 - 2026-09-13
+
+- Added local city autocomplete backed by an embedded GeoNames SQLite database with more than 34,000 cities.
+- Added saved cities and quick switching between automatic and manually selected locations.
+- Added a helpful location setup screen when browser geolocation is unavailable.
+- Added per-city IANA timezone support so worldwide prayer times use the selected city's local time.
+- Added optional, unobtrusive prayer-time sounds with two built-in tones and a custom sound upload stored on the device.
+- Restored persistence for the existing color, background color, and font-size settings.
+
 ## v1.0.7 - 2026-07-13
 
 - Decoupled manifest icon URLs from routine application releases so Android/Chrome no longer asks users to approve an unchanged icon on every update.

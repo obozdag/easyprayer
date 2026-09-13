@@ -5,11 +5,17 @@ Easy Prayer is a progressive web application. It shows exact prayer times.
 ## Features
 
 - Automatic geolocation setting
-- City selection
+- Local city autocomplete and saved cities
+- Worldwide timezone support
+- Optional prayer-time sound alerts and custom sound upload
 - Calculation method selection
 - Asr selection
 - Multi language
 - Week or month tables
+
+## City data
+
+City names, coordinates, administrative regions, population, and IANA timezones are imported into `db/world_cities.db` from the [GeoNames geographical database](https://www.geonames.org/). GeoNames data is licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/). The application searches this embedded SQLite database and does not send city queries to an external location service.
 
 ## Release notes
 

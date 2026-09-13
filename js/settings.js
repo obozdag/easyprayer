@@ -8,6 +8,12 @@ defaultPeriod     = 'week'
 locationPrecision = 7
 mapZoom           = 15
 
+prayerSounds = {
+	softChime : 'soft-chime',
+	singleTone: 'single-tone',
+	custom    : 'custom',
+}
+
 periods = {
 	week  : 7,
 	month : 30,
