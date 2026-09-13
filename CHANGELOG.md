@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.3 - 2026-09-13
+
+- Placed each side-panel heading and close button in the same grid row for exact vertical alignment while preserving accessible heading semantics.
+
 ## v1.2.2 - 2026-09-13
 
 - Aligned side-panel headings with their close buttons and removed the heading and prayer-sound separators.

@@ -152,6 +152,22 @@ h5 {
 .close-btn:hover {
 	color: white;
 }
+.drawer-header {
+	display: grid;
+	grid-template-columns: 2rem minmax(0, 1fr) 2rem;
+	align-items: center;
+	min-height: 2rem;
+	margin-bottom: 1rem;
+}
+.drawer-header .close-btn {
+	position: static;
+}
+.drawer-header .close-btn.left {
+	justify-self: start;
+}
+.drawer-header .close-btn.right {
+	justify-self: end;
+}
 .text-right {
 	text-align: right;
 }
@@ -294,9 +310,8 @@ h5 {
 	display: none;
 }
 .settings-header {
-	margin-bottom: 1rem;
-	min-height: 2rem;
-	padding: .35rem 2.25rem;
+	margin: 0;
+	padding: .35rem 0;
 	text-align: center;
 	font-size: 1.2rem;
 	color: white;

@@ -60,8 +60,11 @@
 		<button type="button" id="open-nav-right" class="nav-top-btn rb-slider" title="Nav Right" aria-label="Open settings"></button>
 	</nav>
 	<nav id="nav-left">
-		<button type="button" id="close-nav-left" class="close-btn right rb-circle-xmark" aria-label="Close location settings"></button>
-		<h4 id="location-settings-header" class="settings-header"></h4>
+		<div class="drawer-header">
+			<span aria-hidden="true"></span>
+			<h4 id="location-settings-header" class="settings-header"></h4>
+			<button type="button" id="close-nav-left" class="close-btn right rb-circle-xmark" aria-label="Close location settings"></button>
+		</div>
 		<div class="settings">
 			<div class="row">
 				<label id="country-list-label"></label>
@@ -101,9 +104,12 @@
 		</div>
 	</nav>
 	<nav id="nav-right">
-		<button type="button" id="close-nav-right" class="close-btn left rb-circle-xmark" aria-label="Close settings"></button>
-		<div class="settings">
+		<div class="drawer-header">
+			<button type="button" id="close-nav-right" class="close-btn left rb-circle-xmark" aria-label="Close settings"></button>
 			<h4 id="settings-header" class="settings-header"></h4>
+			<span aria-hidden="true"></span>
+		</div>
+		<div class="settings">
 			<div class="row">
 				<label id="method-list-label"></label>
 				<select id="method-list"></select>
