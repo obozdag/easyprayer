@@ -2,6 +2,7 @@ window.addEventListener('load', () => {
 	'use strict';
 
 	const $ = id => document.getElementById(id);
+	const prayerKeys = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
 	const elements = {
 		bgColorList: $('bg-color-list'), citySearch: $('city-search'), citySuggestions: $('city-suggestions'),
 		closeNavLeftBtn: $('close-nav-left'), closeNavRightBtn: $('close-nav-right'), closePopupBtn: $('close-popup-btn'),
@@ -13,6 +14,7 @@ window.addEventListener('load', () => {
 		locationMessage: $('location-message'), lonInput: $('lon'), madhabList: $('madhab-list'),
 		methodList: $('method-list'), monthBtn: $('month-btn'), navLeft: $('nav-left'), navRight: $('nav-right'),
 		openNavLeftBtn: $('open-nav-left'), openNavRightBtn: $('open-nav-right'),
+		prayerAdjustments: $('prayer-adjustments'), prayerAdjustmentsSummary: $('prayer-adjustments-summary'),
 		prayerSoundEnabled: $('prayer-sound-enabled'), prayerSoundList: $('prayer-sound-list'),
 		prayerTable: $('prayer-table'), prayerTimes: $('prayer-times'), programInfoBtn: $('program-info-btn'),
 		programInfoContent: $('program-info-content'), programInfoPopup: $('program-info-popup'),
@@ -20,6 +22,7 @@ window.addEventListener('load', () => {
 		savedLocations: $('saved-locations'), soundMessage: $('sound-message'),
 		testPrayerSoundBtn: $('test-prayer-sound-btn'), updateBannerText: $('update-banner-text'), weekBtn: $('week-btn'),
 	};
+	const adjustmentInputs = Array.from(document.querySelectorAll('.prayer-adjustment-input'));
 
 	let activeLocation = null;
 	let audioContext = null;
@@ -29,6 +32,7 @@ window.addEventListener('load', () => {
 	let currentLanguage = localStorage.getItem('language') || defaultLanguage;
 	let currentMadhab = localStorage.getItem('madhab') || defaultMadhab;
 	let currentMethod = localStorage.getItem('method') || defaultMethod;
+	let currentAdjustments = readMethodAdjustments(currentMethod);
 	let currentPeriod = periods[defaultPeriod];
 	let highlightedCity = -1;
 	let savedLocationList = readJson('savedLocations', []);
@@ -109,6 +113,7 @@ window.addEventListener('load', () => {
 		}
 		fillLocalizedSelects();
 		renderSavedLocations();
+		renderAdjustmentInputs();
 	}
 
 	function installEventListeners() {
@@ -125,8 +130,11 @@ window.addEventListener('load', () => {
 		});
 		elements.methodList.addEventListener('change', () => {
 			currentMethod = elements.methodList.value;
-			localStorage.setItem('method', currentMethod); showTimes(); closeNavs();
+			localStorage.setItem('method', currentMethod);
+			currentAdjustments = readMethodAdjustments(currentMethod);
+			renderAdjustmentInputs(); showTimes(); closeNavs();
 		});
+		adjustmentInputs.forEach(input => input.addEventListener('change', savePrayerAdjustment));
 		elements.bgColorList.addEventListener('change', () => setVisualSetting('bgColor', '--set-bg-color', elements.bgColorList.value, defaultBgColor));
 		elements.colorList.addEventListener('change', () => setVisualSetting('color', '--set-color', elements.colorList.value, defaultColor));
 		elements.fontSizeList.addEventListener('change', () => setVisualSetting('fontSize', '--set-font-size', elements.fontSizeList.value, defaultFontSize));
@@ -192,6 +200,8 @@ window.addEventListener('load', () => {
 	}
 
 	function resetSettings() {
+		localStorage.removeItem('prayerAdjustments');
+		currentAdjustments = {};
 		[
 			[elements.bgColorList, defaultBgColor], [elements.colorList, defaultColor],
 			[elements.fontSizeList, defaultFontSize], [elements.languageList, defaultLanguage],
@@ -203,6 +213,56 @@ window.addEventListener('load', () => {
 		elements.prayerSoundEnabled.checked = false;
 		localStorage.removeItem('prayerSoundEnabled');
 		elements.soundMessage.textContent = t('sound-disabled');
+	}
+
+	function readMethodAdjustments(method) {
+		const storedAdjustments = readJson('prayerAdjustments', {});
+		const allAdjustments = storedAdjustments && typeof storedAdjustments === 'object' && !Array.isArray(storedAdjustments)
+			? storedAdjustments
+			: {};
+		const methodAdjustments = allAdjustments && typeof allAdjustments[method] === 'object'
+			? allAdjustments[method]
+			: {};
+		const normalized = {};
+		prayerKeys.forEach(prayer => {
+			const value = Number(methodAdjustments[prayer]);
+			if (Number.isFinite(value) && value !== 0) normalized[prayer] = Math.max(-60, Math.min(60, Math.round(value)));
+		});
+		return normalized;
+	}
+
+	function renderAdjustmentInputs() {
+		adjustmentInputs.forEach(input => {
+			const prayer = input.dataset.prayer;
+			$(`adjustment-${prayer}-label`).textContent = t('prayer_names')[prayer];
+			input.value = currentAdjustments[prayer] || '';
+			input.setAttribute('aria-label', `${t('prayer_names')[prayer]} — ${t('prayer-adjustments-label')}`);
+		});
+		const activeCount = Object.keys(currentAdjustments).length;
+		elements.prayerAdjustmentsSummary.textContent = activeCount
+			? `${t('prayer-adjustments-label')} · ${activeCount} ${t('prayer-adjustments-active')}`
+			: t('prayer-adjustments-label');
+	}
+
+	function savePrayerAdjustment(event) {
+		const input = event.currentTarget;
+		const prayer = input.dataset.prayer;
+		const parsed = Number(input.value);
+		const value = input.value.trim() === '' || !Number.isFinite(parsed)
+			? 0
+			: Math.max(-60, Math.min(60, Math.round(parsed)));
+		if (value === 0) delete currentAdjustments[prayer];
+		else currentAdjustments[prayer] = value;
+
+		const storedAdjustments = readJson('prayerAdjustments', {});
+		const allAdjustments = storedAdjustments && typeof storedAdjustments === 'object' && !Array.isArray(storedAdjustments)
+			? storedAdjustments
+			: {};
+		if (Object.keys(currentAdjustments).length) allAdjustments[currentMethod] = { ...currentAdjustments };
+		else delete allAdjustments[currentMethod];
+		if (Object.keys(allAdjustments).length) localStorage.setItem('prayerAdjustments', JSON.stringify(allAdjustments));
+		else localStorage.removeItem('prayerAdjustments');
+		renderAdjustmentInputs(); showTimes();
 	}
 
 	async function loadCountries() {
@@ -422,6 +482,7 @@ window.addEventListener('load', () => {
 		const params = adhan.CalculationMethod[currentMethod]();
 		params.madhab = adhan.Madhab[currentMadhab];
 		params.highLatitudeRule = adhan.HighLatitudeRule.SeventhOfTheNight;
+		params.adjustments = { ...params.adjustments, ...currentAdjustments };
 		const calculationDate = new Date(dayMoment.year(), dayMoment.month(), dayMoment.date(), 12);
 		return new adhan.PrayerTimes(coordinates, calculationDate, params);
 	}
@@ -436,7 +497,7 @@ window.addEventListener('load', () => {
 			const prayerTimes = getPrayerTimes(dayMoment);
 			const day = `${dayMoment.date()} ${t('months')[dayMoment.month()]}<br><span class="day">${t('days')[dayMoment.day()]}</span>`;
 			const formatted = {};
-			['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(prayer => {
+			prayerKeys.forEach(prayer => {
 				formatted[prayer] = moment(prayerTimes[prayer]).tz(timezone).format('HH:mm');
 			});
 			fillTableCells(day, formatted);

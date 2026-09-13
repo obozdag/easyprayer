@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.0 - 2026-09-13
+
+- Added optional minute adjustments for every displayed prayer time.
+- Stored adjustments separately for each calculation method, restoring them when that method is selected again.
+- Applied adjusted times consistently to both the prayer table and prayer-time sound alerts.
+
 ## v1.2.3 - 2026-09-13
 
 - Placed each side-panel heading and close button in the same grid row for exact vertical alignment while preserving accessible heading semantics.

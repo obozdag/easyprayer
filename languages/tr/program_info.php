@@ -13,6 +13,7 @@
 	<li>Şehir arama ve şehirleri kaydetme</li>
 	<li>İsteğe bağlı kısa vakit sesi veya özel ses dosyası</li>
 	<li>Hesaplama metodu seçimi</li>
+	<li>Her hesaplama metodu için ayrı manuel vakit düzeltmeleri</li>
 	<li>İkindi vakti hesabı seçimi</li>
 	<li>Aylık ve haftalık tablolar</li>
 	<li>Çoklu dil</li>

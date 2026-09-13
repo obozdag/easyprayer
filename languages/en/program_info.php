@@ -14,6 +14,7 @@
 	<li>City search and saved cities</li>
 	<li>Optional short prayer-time sound or custom sound file</li>
 	<li>Calculation method selection</li>
+	<li>Separate manual time adjustments for each calculation method</li>
 	<li>Asr selection</li>
 	<li>Monthly and weekly time table</li>
 	<li>Multi language</li>

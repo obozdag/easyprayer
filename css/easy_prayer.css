@@ -309,6 +309,26 @@ h5 {
 .settings label:empty {
 	display: none;
 }
+.prayer-adjustments {
+	margin-bottom: 1rem;
+}
+.prayer-adjustments summary {
+	cursor: pointer;
+	line-height: 1.4;
+}
+.prayer-adjustments-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: .75rem;
+	margin-top: .75rem;
+}
+.prayer-adjustments-grid label {
+	display: grid;
+	gap: .3rem;
+}
+.settings .prayer-adjustment-input {
+	min-width: 0;
+}
 .settings-header {
 	margin: 0;
 	padding: .35rem 0;

@@ -118,6 +118,17 @@
 				<label id="madhab-list-label"></label>
 				<select id="madhab-list"></select>
 			</div>
+			<details id="prayer-adjustments" class="prayer-adjustments">
+				<summary id="prayer-adjustments-summary"></summary>
+				<div class="prayer-adjustments-grid">
+					<label><span id="adjustment-fajr-label"></span><input class="prayer-adjustment-input" data-prayer="fajr" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+					<label><span id="adjustment-sunrise-label"></span><input class="prayer-adjustment-input" data-prayer="sunrise" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+					<label><span id="adjustment-dhuhr-label"></span><input class="prayer-adjustment-input" data-prayer="dhuhr" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+					<label><span id="adjustment-asr-label"></span><input class="prayer-adjustment-input" data-prayer="asr" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+					<label><span id="adjustment-maghrib-label"></span><input class="prayer-adjustment-input" data-prayer="maghrib" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+					<label><span id="adjustment-isha-label"></span><input class="prayer-adjustment-input" data-prayer="isha" type="number" min="-60" max="60" step="1" inputmode="numeric" placeholder="0"></label>
+				</div>
+			</details>
 			<div class="row">
 				<label id="font-size-list-label"></label>
 				<select id="font-size-list"></select>
