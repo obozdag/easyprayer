@@ -78,6 +78,7 @@ h5 {
 	grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
 	gap: .75rem;
 	align-items: center;
+	margin-bottom: .5rem;
 }
 .location-map-link {
 	display: flex;
@@ -668,6 +669,9 @@ footer a {
 #prayer-table .date-cell {
 	max-width: 100px;
 	text-align: left;
+}
+#prayer-table .next-prayer {
+	font-weight: 600;
 }
 .day {
 	color: steelblue;

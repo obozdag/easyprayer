@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.2 - 2026-09-13
+
+- Showed the most relevant nearby city from the local database for automatic locations, with “Current location” retained only as a fallback.
+- Added spacing between the page heading and prayer table.
+- Emphasized the next displayed prayer time with a slightly heavier font and refreshed the emphasis as time advances.
+
 ## v1.3.1 - 2026-09-13
 
 - Moved the selected city and map link beside the prayer-times heading.

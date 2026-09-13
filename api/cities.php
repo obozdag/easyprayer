@@ -47,14 +47,34 @@ try {
 		}
 
 		$longitudeFactor = max(0.15, cos(deg2rad((float) $latitude)));
+		$latitudeDelta = 0.225;
+		$longitudeDelta = $latitudeDelta / $longitudeFactor;
 		$sql = 'SELECT id, name, admin_name, country_name, country_code, latitude, longitude, timezone
+			FROM city
+			WHERE latitude BETWEEN :min_lat AND :max_lat
+				AND longitude BETWEEN :min_lon AND :max_lon
+			ORDER BY population DESC,
+				((latitude - :lat) * (latitude - :lat))
+				+ (((longitude - :lon) * :lon_factor) * ((longitude - :lon) * :lon_factor))
+			LIMIT 1';
+		$stmt = $db->prepare($sql);
+		$stmt->execute([
+			':min_lat' => $latitude - $latitudeDelta, ':max_lat' => $latitude + $latitudeDelta,
+			':min_lon' => $longitude - $longitudeDelta, ':max_lon' => $longitude + $longitudeDelta,
+			':lat' => $latitude, ':lon' => $longitude, ':lon_factor' => $longitudeFactor,
+		]);
+		$row = $stmt->fetch();
+
+		if (!$row) {
+			$sql = 'SELECT id, name, admin_name, country_name, country_code, latitude, longitude, timezone
 			FROM city
 			ORDER BY ((latitude - :lat) * (latitude - :lat))
 				+ (((longitude - :lon) * :lon_factor) * ((longitude - :lon) * :lon_factor))
 			LIMIT 1';
-		$stmt = $db->prepare($sql);
-		$stmt->execute([':lat' => $latitude, ':lon' => $longitude, ':lon_factor' => $longitudeFactor]);
-		$row = $stmt->fetch();
+			$stmt = $db->prepare($sql);
+			$stmt->execute([':lat' => $latitude, ':lon' => $longitude, ':lon_factor' => $longitudeFactor]);
+			$row = $stmt->fetch();
+		}
 		respond($row ? cityRow($row) : []);
 	}
 

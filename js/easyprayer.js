@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
 	installEventListeners();
 	loadCountries();
 	restoreLocation();
-	window.setInterval(checkPrayerAlert, 20000);
+	window.setInterval(() => { updateNextPrayerHighlight(); checkPrayerAlert(); }, 20000);
 
 	function t(key) {
 		return translations[currentLanguage]?.[key]
@@ -414,15 +414,20 @@ window.addEventListener('load', () => {
 	function restoreLocation() {
 		const activeId = localStorage.getItem('activeLocationId');
 		const stored = savedLocationList.find(location => location.id === activeId) || savedLocationList[0];
-		if (stored) { setActiveLocation(stored, false); return; }
+		if (stored) {
+			setActiveLocation(stored, false);
+			if (stored.type === 'current' && isGenericCurrentLocationName(stored.name)) resolveCurrentCity(stored);
+			return;
+		}
 		const oldLatitude = Number(localStorage.getItem('latitude'));
 		const oldLongitude = Number(localStorage.getItem('longitude'));
 		if (Number.isFinite(oldLatitude) && Number.isFinite(oldLongitude) && localStorage.getItem('latitude') !== null) {
-			setActiveLocation({
+			const restoredLocation = {
 				id: 'current-location', name: t('current-location'), admin: '', country: '', countryCode: '',
 				latitude: oldLatitude, longitude: oldLongitude,
 				timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', type: 'current',
-			}, true); return;
+			};
+			setActiveLocation(restoredLocation, true); resolveCurrentCity(restoredLocation); return;
 		}
 		showEmptyState(); getLocation();
 	}
@@ -435,17 +440,37 @@ window.addEventListener('load', () => {
 		});
 	}
 
+	async function findNearestCity(latitude, longitude) {
+		try {
+			const appVersion = window.appConfig?.version || 'dev';
+			const response = await fetch(`/api/cities.php?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}&v=${encodeURIComponent(appVersion)}`);
+			return response.ok ? await response.json() : {};
+		} catch (error) {
+			return {};
+		}
+	}
+
+	function isGenericCurrentLocationName(name) {
+		return !name || Object.values(translations).some(language => language['current-location'] === name);
+	}
+
+	async function resolveCurrentCity(location) {
+		const nearest = await findNearestCity(location.latitude, location.longitude);
+		if (!nearest.name || activeLocation?.id !== location.id
+			|| activeLocation.latitude !== location.latitude || activeLocation.longitude !== location.longitude) return;
+		setActiveLocation({
+			...location, name: nearest.name, admin: nearest.admin || '', country: nearest.country || '',
+			countryCode: nearest.countryCode || '', timezone: nearest.timezone || location.timezone,
+		}, true);
+	}
+
 	async function getLocation() {
 		showLoading(); elements.locationMessage.textContent = '';
 		try {
 			const position = await getPosition();
 			const latitude = Number(position.coords.latitude.toFixed(locationPrecision));
 			const longitude = Number(position.coords.longitude.toFixed(locationPrecision));
-			let nearest = {};
-			try {
-				const response = await fetch(`/api/cities.php?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`);
-				if (response.ok) nearest = await response.json();
-			} catch (error) {}
+			const nearest = await findNearestCity(latitude, longitude);
 			setActiveLocation({
 				id: 'current-location', name: nearest.name || t('current-location'), admin: nearest.admin || '',
 				country: nearest.country || '', countryCode: nearest.countryCode || '', latitude, longitude,
@@ -467,7 +492,9 @@ window.addEventListener('load', () => {
 			mapLink.removeAttribute('title');
 			return;
 		}
-		const locationName = activeLocation.type === 'current' ? t('current-location') : activeLocation.name;
+		const locationName = activeLocation.type === 'current' && isGenericCurrentLocationName(activeLocation.name)
+			? t('current-location')
+			: activeLocation.name;
 		$('location-map-label').textContent = locationName;
 		mapLink.title = locationName;
 		mapLink.hidden = false;
@@ -507,10 +534,14 @@ window.addEventListener('load', () => {
 			const day = `${dayMoment.date()} ${t('months')[dayMoment.month()]}<br><span class="day">${t('days')[dayMoment.day()]}</span>`;
 			const formatted = {};
 			prayerKeys.forEach(prayer => {
-				formatted[prayer] = moment(prayerTimes[prayer]).tz(timezone).format('HH:mm');
+				formatted[prayer] = {
+					label: moment(prayerTimes[prayer]).tz(timezone).format('HH:mm'),
+					timestamp: prayerTimes[prayer].getTime(),
+				};
 			});
 			fillTableCells(day, formatted);
 		}
+		updateNextPrayerHighlight();
 		checkPrayerAlert();
 	}
 
@@ -526,9 +557,17 @@ window.addEventListener('load', () => {
 		const row = document.createElement('tr'); const dateCell = document.createElement('td');
 		dateCell.className = 'date-cell'; dateCell.innerHTML = day; row.appendChild(dateCell);
 		Object.values(prayerTimes).forEach(time => {
-			const cell = document.createElement('td'); cell.textContent = time; row.appendChild(cell);
+			const cell = document.createElement('td'); cell.textContent = time.label;
+			cell.dataset.prayerTime = String(time.timestamp); row.appendChild(cell);
 		});
 		elements.prayerTable.appendChild(row);
+	}
+
+	function updateNextPrayerHighlight() {
+		const cells = Array.from(elements.prayerTable.querySelectorAll('[data-prayer-time]'));
+		cells.forEach(cell => cell.classList.remove('next-prayer'));
+		const nextCell = cells.find(cell => Number(cell.dataset.prayerTime) > Date.now());
+		if (nextCell) nextCell.classList.add('next-prayer');
 	}
 
 	function setPeriod(period) {
