@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.4 - 2026-09-18
+
+- Added a navbar theme button with light, dark, and automatic day/night modes.
+- Localized the theme labels and refreshed the browser theme color to match the selected mode.
+
 ## v1.3.3 - 2026-09-13
 
 - Kept automatic geolocation independent from city selection: it now uses the device coordinates directly and displays “Current location”.

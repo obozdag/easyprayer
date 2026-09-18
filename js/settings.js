@@ -5,6 +5,7 @@ defaultMadhab     = 'Shafi'
 defaultLanguage   = 'tr'
 defaultMethod     = 'MuslimWorldLeague'
 defaultPeriod     = 'week'
+defaultTheme      = 'system'
 locationPrecision = 7
 mapZoom           = 15
 
@@ -17,6 +18,12 @@ prayerSounds = {
 periods = {
 	week  : 7,
 	month : 30,
+}
+
+themes = {
+	system: 'Auto',
+	light : 'Light',
+	dark  : 'Dark',
 }
 
 languages = {

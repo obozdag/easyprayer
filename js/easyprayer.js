@@ -3,6 +3,8 @@ window.addEventListener('load', () => {
 
 	const $ = id => document.getElementById(id);
 	const prayerKeys = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+	const DAY_THEME_START_HOUR = 7;
+	const NIGHT_THEME_START_HOUR = 19;
 	const elements = {
 		bgColorList: $('bg-color-list'), citySearch: $('city-search'), citySuggestions: $('city-suggestions'),
 		closeNavLeftBtn: $('close-nav-left'), closeNavRightBtn: $('close-nav-right'), closePopupBtn: $('close-popup-btn'),
@@ -20,7 +22,8 @@ window.addEventListener('load', () => {
 		programInfoContent: $('program-info-content'), programInfoPopup: $('program-info-popup'),
 		removeLocationBtn: $('remove-location-btn'), rightResetBtn: $('right-reset-btn'),
 		savedLocations: $('saved-locations'), soundMessage: $('sound-message'),
-		testPrayerSoundBtn: $('test-prayer-sound-btn'), updateBannerText: $('update-banner-text'), weekBtn: $('week-btn'),
+		testPrayerSoundBtn: $('test-prayer-sound-btn'), themeModeBtn: $('theme-mode-btn'),
+		updateBannerText: $('update-banner-text'), weekBtn: $('week-btn'),
 	};
 	const adjustmentInputs = Array.from(document.querySelectorAll('.prayer-adjustment-input'));
 
@@ -108,6 +111,7 @@ window.addEventListener('load', () => {
 		elements.emptyChooseCityBtn.textContent = t('choose-city');
 		setHeaderLocation();
 		if (elements.updateBannerText) elements.updateBannerText.textContent = t('updating-app');
+		syncThemeButton(localStorage.getItem('theme') || defaultTheme);
 		if (elements.countryList.options.length > 0 && elements.countryList.options[0].value === '') {
 			elements.countryList.options[0].textContent = t('all-countries');
 		}
@@ -157,6 +161,7 @@ window.addEventListener('load', () => {
 		elements.customSoundFile.addEventListener('change', saveCustomSound);
 		elements.monthBtn.addEventListener('click', () => setPeriod('month'));
 		elements.weekBtn.addEventListener('click', () => setPeriod('week'));
+		elements.themeModeBtn.addEventListener('click', cycleTheme);
 		elements.programInfoPopup.addEventListener('click', closeInfoPopup);
 		elements.programInfoBtn.addEventListener('click', openInfoPopup);
 		elements.closePopupBtn.addEventListener('click', closeInfoPopup);
@@ -173,9 +178,9 @@ window.addEventListener('load', () => {
 			if (!event.target.closest('.city-search-wrap')) hideCitySuggestions();
 		});
 		document.addEventListener('visibilitychange', () => {
-			if (!document.hidden) { showTimes(); checkPrayerAlert(); }
+			if (!document.hidden) { showTimes(); checkPrayerAlert(); refreshAutomaticTheme(); }
 		});
-		window.addEventListener('focus', checkPrayerAlert);
+		window.addEventListener('focus', () => { checkPrayerAlert(); refreshAutomaticTheme(); });
 	}
 
 	function restoreSettings() {
@@ -188,8 +193,48 @@ window.addEventListener('load', () => {
 		document.documentElement.style.setProperty('--set-bg-color', bgColor);
 		document.documentElement.style.setProperty('--set-color', color);
 		document.documentElement.style.setProperty('--set-font-size', fontSize);
+		applyTheme(localStorage.getItem('theme') || defaultTheme);
 		elements.prayerSoundEnabled.checked = localStorage.getItem('prayerSoundEnabled') === '1';
 		showCustomSoundInput();
+	}
+
+	function applyTheme(theme) {
+		const selectedTheme = Object.hasOwn(themes, theme) ? theme : defaultTheme;
+		const resolvedTheme = selectedTheme === 'system' ? getAutomaticTheme() : selectedTheme;
+		document.documentElement.dataset.theme = resolvedTheme;
+		document.documentElement.style.colorScheme = resolvedTheme;
+		document.querySelector('meta[name="theme-color"]')?.setAttribute(
+			'content',
+			resolvedTheme === 'dark' ? '#111827' : getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim(),
+		);
+		if (selectedTheme === defaultTheme) localStorage.removeItem('theme');
+		else localStorage.setItem('theme', selectedTheme);
+		syncThemeButton(selectedTheme);
+	}
+
+	function syncThemeButton(theme) {
+		const selectedTheme = Object.hasOwn(themes, theme) ? theme : defaultTheme;
+		const iconTheme = selectedTheme === 'system' ? 'auto' : selectedTheme;
+		const label = t('theme-mode-labels')?.[selectedTheme] || themes[selectedTheme];
+		const icon = elements.themeModeBtn.querySelector('.theme-mode-icon');
+		icon.className = `theme-mode-icon theme-mode-icon-${iconTheme}`;
+		elements.themeModeBtn.title = label;
+		elements.themeModeBtn.setAttribute('aria-label', label);
+	}
+
+	function cycleTheme() {
+		const currentTheme = localStorage.getItem('theme') || defaultTheme;
+		const nextTheme = currentTheme === 'light' ? 'dark' : currentTheme === 'dark' ? 'system' : 'light';
+		applyTheme(nextTheme);
+	}
+
+	function getAutomaticTheme(date = new Date()) {
+		const hour = date.getHours();
+		return hour >= DAY_THEME_START_HOUR && hour < NIGHT_THEME_START_HOUR ? 'light' : 'dark';
+	}
+
+	function refreshAutomaticTheme() {
+		if ((localStorage.getItem('theme') || defaultTheme) === 'system') applyTheme('system');
 	}
 
 	function setVisualSetting(storageKey, cssProperty, value, defaultValue) {
@@ -201,6 +246,7 @@ window.addEventListener('load', () => {
 
 	function resetSettings() {
 		localStorage.removeItem('prayerAdjustments');
+		applyTheme(defaultTheme);
 		currentAdjustments = {};
 		[
 			[elements.bgColorList, defaultBgColor], [elements.colorList, defaultColor],

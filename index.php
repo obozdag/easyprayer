@@ -57,6 +57,9 @@
 		<button type="button" id="month-btn" class="nav-top-btn rb-monthly-calendar" title="Month" aria-label="Show monthly table"></button>
 		<button type="button" id="week-btn" class="nav-top-btn rb-weekly-calendar" title="Week" aria-label="Show weekly table"></button>
 		<!-- <span><i id="bookmark-icon" class="nav-top-btn rb-bookmark" title="Bookmark"></i><span id="bookmark-container"></span></span> -->
+		<button type="button" id="theme-mode-btn" class="nav-top-btn theme-mode-btn">
+			<span class="theme-mode-icon" aria-hidden="true"></span>
+		</button>
 		<button type="button" id="open-nav-right" class="nav-top-btn rb-slider" title="Nav Right" aria-label="Open settings"></button>
 	</nav>
 	<nav id="nav-left">

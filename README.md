@@ -1,4 +1,4 @@
-# Easy Prayer v1.3.3
+# Easy Prayer v1.3.4
 
 Easy Prayer is a progressive web application. It shows exact prayer times.
 
