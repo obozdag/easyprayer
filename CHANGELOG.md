@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.1 - 2026-09-21
+
+- Replaced the next-prayer cell background with bold, underlined time text.
+
 ## v1.4.0 - 2026-09-21
 
 - Shortened prayer-time table headings to four characters and made all prayer columns equal in width.

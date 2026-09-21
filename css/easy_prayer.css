@@ -721,8 +721,10 @@ footer a {
 	text-align: left;
 }
 #prayer-table .next-prayer {
-	background-color: color-mix(in srgb, var(--set-color) 22%, transparent);
 	font-weight: 700;
+	text-decoration: underline;
+	text-decoration-thickness: .08em;
+	text-underline-offset: .15em;
 }
 .day {
 	color: var(--set-color);
