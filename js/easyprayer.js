@@ -8,8 +8,7 @@ window.addEventListener('load', () => {
 	const elements = {
 		bgColorList: $('bg-color-list'), citySearch: $('city-search'), citySuggestions: $('city-suggestions'),
 		closeNavLeftBtn: $('close-nav-left'), closeNavRightBtn: $('close-nav-right'), closePopupBtn: $('close-popup-btn'),
-		colorList: $('color-list'), countryList: $('country-list'), customSoundFile: $('custom-sound-file'),
-		customSoundRow: $('custom-sound-row'), emptyChooseCityBtn: $('empty-choose-city-btn'),
+		colorList: $('color-list'), countryList: $('country-list'), emptyChooseCityBtn: $('empty-choose-city-btn'),
 		emptyUseLocationBtn: $('empty-use-location-btn'), fontSizeList: $('font-size-list'),
 		getLocationBtn: $('get-location-btn'), header: $('header'), languageList: $('language-list'),
 		latInput: $('lat'), locationEmptyState: $('location-empty-state'), locationLoading: $('location-loading'),
@@ -17,18 +16,15 @@ window.addEventListener('load', () => {
 		methodList: $('method-list'), monthBtn: $('month-btn'), navLeft: $('nav-left'), navRight: $('nav-right'),
 		openNavLeftBtn: $('open-nav-left'), openNavRightBtn: $('open-nav-right'),
 		prayerAdjustments: $('prayer-adjustments'), prayerAdjustmentsSummary: $('prayer-adjustments-summary'),
-		prayerSoundEnabled: $('prayer-sound-enabled'), prayerSoundList: $('prayer-sound-list'),
 		prayerTable: $('prayer-table'), prayerTimes: $('prayer-times'), programInfoBtn: $('program-info-btn'),
 		programInfoContent: $('program-info-content'), programInfoPopup: $('program-info-popup'),
 		removeLocationBtn: $('remove-location-btn'), rightResetBtn: $('right-reset-btn'),
-		savedLocations: $('saved-locations'), soundMessage: $('sound-message'),
-		testPrayerSoundBtn: $('test-prayer-sound-btn'), themeModeBtn: $('theme-mode-btn'),
+		savedLocations: $('saved-locations'), themeModeBtn: $('theme-mode-btn'),
 		updateBannerText: $('update-banner-text'), weekBtn: $('week-btn'),
 	};
 	const adjustmentInputs = Array.from(document.querySelectorAll('.prayer-adjustment-input'));
 
 	let activeLocation = null;
-	let audioContext = null;
 	let cityAbortController = null;
 	let cityResults = [];
 	let citySearchTimer = null;
@@ -46,7 +42,7 @@ window.addEventListener('load', () => {
 	installEventListeners();
 	loadCountries();
 	restoreLocation();
-	window.setInterval(() => { updateNextPrayerHighlight(); checkPrayerAlert(); }, 20000);
+	window.setInterval(updateNextPrayerHighlight, 20000);
 
 	function t(key) {
 		return translations[currentLanguage]?.[key]
@@ -86,16 +82,15 @@ window.addEventListener('load', () => {
 	function fillLocalizedSelects() {
 		createOptions(elements.madhabList, t('madhabs'), currentMadhab);
 		createOptions(elements.methodList, t('methods'), currentMethod);
-		createOptions(elements.prayerSoundList, t('prayer-sounds'), localStorage.getItem('prayerSound') || prayerSounds.softChime);
 	}
 
 	function setLabels() {
 		[
 			'bg-color-list-label', 'city-search-label', 'color-list-label', 'country-list-label',
-			'custom-sound-label', 'font-size-list-label', 'header', 'language-list-label',
+			'font-size-list-label', 'header', 'language-list-label',
 			'lat-input-label', 'location-header', 'location-latitude-label', 'location-longitude-label',
 			'location-settings-header', 'lon-input-label', 'madhab-list-label',
-			'method-list-label', 'prayer-sound-enabled-label', 'prayer-sound-list-label',
+			'method-list-label',
 			'saved-locations-label', 'settings-header',
 		].forEach(id => {
 			const element = $(id);
@@ -103,7 +98,6 @@ window.addEventListener('load', () => {
 		});
 		elements.getLocationBtn.textContent = t('get-location-btn');
 		elements.rightResetBtn.textContent = t('right-reset-btn');
-		elements.testPrayerSoundBtn.textContent = t('test-prayer-sound-btn');
 		elements.citySearch.placeholder = t('city-search-placeholder');
 		elements.removeLocationBtn.setAttribute('aria-label', t('remove-location'));
 		$('location-empty-text').textContent = t('location-empty');
@@ -124,7 +118,6 @@ window.addEventListener('load', () => {
 		elements.languageList.addEventListener('change', () => {
 			currentLanguage = elements.languageList.value;
 			localStorage.setItem('language', currentLanguage);
-			elements.soundMessage.textContent = '';
 			elements.locationMessage.textContent = '';
 			setLabels(); showTimes(); closeNavs();
 		});
@@ -153,12 +146,6 @@ window.addEventListener('load', () => {
 		elements.citySearch.addEventListener('keydown', handleCityKeys);
 		elements.savedLocations.addEventListener('change', selectSavedLocation);
 		elements.removeLocationBtn.addEventListener('click', removeActiveLocation);
-		elements.prayerSoundEnabled.addEventListener('change', togglePrayerSound);
-		elements.prayerSoundList.addEventListener('change', () => {
-			localStorage.setItem('prayerSound', elements.prayerSoundList.value); showCustomSoundInput();
-		});
-		elements.testPrayerSoundBtn.addEventListener('click', testPrayerSound);
-		elements.customSoundFile.addEventListener('change', saveCustomSound);
 		elements.monthBtn.addEventListener('click', () => setPeriod('month'));
 		elements.weekBtn.addEventListener('click', () => setPeriod('week'));
 		elements.themeModeBtn.addEventListener('click', cycleTheme);
@@ -178,9 +165,9 @@ window.addEventListener('load', () => {
 			if (!event.target.closest('.city-search-wrap')) hideCitySuggestions();
 		});
 		document.addEventListener('visibilitychange', () => {
-			if (!document.hidden) { showTimes(); checkPrayerAlert(); refreshAutomaticTheme(); }
+			if (!document.hidden) { showTimes(); refreshAutomaticTheme(); }
 		});
-		window.addEventListener('focus', () => { checkPrayerAlert(); refreshAutomaticTheme(); });
+		window.addEventListener('focus', refreshAutomaticTheme);
 	}
 
 	function restoreSettings() {
@@ -194,8 +181,6 @@ window.addEventListener('load', () => {
 		document.documentElement.style.setProperty('--set-color', color);
 		document.documentElement.style.setProperty('--set-font-size', fontSize);
 		applyTheme(localStorage.getItem('theme') || defaultTheme);
-		elements.prayerSoundEnabled.checked = localStorage.getItem('prayerSoundEnabled') === '1';
-		showCustomSoundInput();
 	}
 
 	function applyTheme(theme) {
@@ -256,9 +241,6 @@ window.addEventListener('load', () => {
 			element.value = value;
 			element.dispatchEvent(new Event('change', { bubbles: true }));
 		});
-		elements.prayerSoundEnabled.checked = false;
-		localStorage.removeItem('prayerSoundEnabled');
-		elements.soundMessage.textContent = t('sound-disabled');
 	}
 
 	function readMethodAdjustments(method) {
@@ -557,13 +539,15 @@ window.addEventListener('load', () => {
 			fillTableCells(day, formatted);
 		}
 		updateNextPrayerHighlight();
-		checkPrayerAlert();
 	}
 
 	function fillTableHeaders() {
 		const row = document.createElement('tr'); row.appendChild(document.createElement('th'));
-		Object.values(t('prayer_names')).forEach(name => {
-			const cell = document.createElement('th'); cell.textContent = name; row.appendChild(cell);
+		Object.entries(t('prayer_names_short')).forEach(([prayer, name]) => {
+			const cell = document.createElement('th'); cell.textContent = name;
+			cell.title = t('prayer_names')[prayer];
+			cell.setAttribute('aria-label', t('prayer_names')[prayer]);
+			row.appendChild(cell);
 		});
 		elements.prayerTable.appendChild(row);
 	}
@@ -587,109 +571,6 @@ window.addEventListener('load', () => {
 
 	function setPeriod(period) {
 		if (currentPeriod !== periods[period]) { currentPeriod = periods[period]; showTimes(); }
-	}
-
-	function togglePrayerSound() {
-		const enabled = elements.prayerSoundEnabled.checked;
-		localStorage.setItem('prayerSoundEnabled', enabled ? '1' : '0');
-		elements.soundMessage.textContent = t(enabled ? 'sound-enabled' : 'sound-disabled');
-		if (enabled) playPrayerSound(true);
-	}
-
-	async function testPrayerSound() {
-		if (await playPrayerSound(true)) elements.soundMessage.textContent = t('sound-tested');
-	}
-
-	function showCustomSoundInput() {
-		elements.customSoundRow.hidden = elements.prayerSoundList.value !== prayerSounds.custom;
-	}
-
-	async function playPrayerSound(preview = false) {
-		if (!preview && localStorage.getItem('prayerSoundEnabled') !== '1') return false;
-		const sound = elements.prayerSoundList.value || prayerSounds.softChime;
-		try {
-			if (sound === prayerSounds.custom) {
-				const blob = await readCustomSound();
-				if (!blob) { elements.soundMessage.textContent = t('custom-sound-required'); return false; }
-				const url = URL.createObjectURL(blob); const audio = new Audio(url); audio.volume = 0.45;
-				audio.addEventListener('ended', () => URL.revokeObjectURL(url), { once: true });
-				await audio.play(); return true;
-			}
-			const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-			if (!AudioContextClass) throw new Error('Audio is unsupported');
-			audioContext = audioContext || new AudioContextClass();
-			if (audioContext.state === 'suspended') await audioContext.resume();
-			playBuiltInSound(sound); return true;
-		} catch (error) {
-			elements.soundMessage.textContent = t('sound-blocked'); return false;
-		}
-	}
-
-	function playBuiltInSound(sound) {
-		const now = audioContext.currentTime;
-		const notes = sound === prayerSounds.singleTone
-			? [{ frequency: 523.25, start: 0, duration: .4 }]
-			: [{ frequency: 659.25, start: 0, duration: .45 }, { frequency: 783.99, start: .38, duration: .65 }];
-		notes.forEach(note => {
-			const oscillator = audioContext.createOscillator(); const gain = audioContext.createGain();
-			oscillator.type = 'sine'; oscillator.frequency.value = note.frequency;
-			gain.gain.setValueAtTime(0.0001, now + note.start);
-			gain.gain.exponentialRampToValueAtTime(0.12, now + note.start + .03);
-			gain.gain.exponentialRampToValueAtTime(0.0001, now + note.start + note.duration);
-			oscillator.connect(gain).connect(audioContext.destination);
-			oscillator.start(now + note.start); oscillator.stop(now + note.start + note.duration);
-		});
-	}
-
-	function openSoundDatabase() {
-		return new Promise((resolve, reject) => {
-			const request = indexedDB.open('easyPrayer', 1);
-			request.onupgradeneeded = () => {
-				if (!request.result.objectStoreNames.contains('settings')) request.result.createObjectStore('settings');
-			};
-			request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
-		});
-	}
-
-	async function saveCustomSound() {
-		const file = elements.customSoundFile.files[0];
-		if (!file || !file.type.startsWith('audio/') || file.size > 5 * 1024 * 1024) {
-			elements.soundMessage.textContent = t('custom-sound-invalid'); elements.customSoundFile.value = ''; return;
-		}
-		try {
-			const db = await openSoundDatabase();
-			await new Promise((resolve, reject) => {
-				const transaction = db.transaction('settings', 'readwrite');
-				transaction.objectStore('settings').put(file, 'customPrayerSound');
-				transaction.oncomplete = resolve; transaction.onerror = () => reject(transaction.error);
-			});
-			db.close(); elements.soundMessage.textContent = t('custom-sound-saved'); playPrayerSound(true);
-		} catch (error) { elements.soundMessage.textContent = t('custom-sound-invalid'); }
-	}
-
-	async function readCustomSound() {
-		const db = await openSoundDatabase();
-		return new Promise((resolve, reject) => {
-			const transaction = db.transaction('settings', 'readonly');
-			const request = transaction.objectStore('settings').get('customPrayerSound');
-			request.onsuccess = () => { db.close(); resolve(request.result || null); };
-			request.onerror = () => { db.close(); reject(request.error); };
-		});
-	}
-
-	async function checkPrayerAlert() {
-		if (!activeLocation || localStorage.getItem('prayerSoundEnabled') !== '1') return;
-		const timezone = activeLocation.timezone || 'UTC';
-		const now = moment().tz(timezone); const dayMoment = now.clone().startOf('day');
-		const prayerTimes = getPrayerTimes(dayMoment);
-		for (const prayer of ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha']) {
-			const prayerMoment = moment(prayerTimes[prayer]).tz(timezone);
-			const secondsAfter = now.diff(prayerMoment, 'seconds');
-			const alertKey = `${activeLocation.id}:${dayMoment.format('YYYY-MM-DD')}:${prayer}`;
-			if (secondsAfter >= 0 && secondsAfter < 60 && localStorage.getItem('lastPrayerAlert') !== alertKey) {
-				localStorage.setItem('lastPrayerAlert', alertKey); await playPrayerSound(false); break;
-			}
-		}
 	}
 
 	function openCitySearch() {

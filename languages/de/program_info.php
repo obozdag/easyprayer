@@ -10,7 +10,6 @@
 	<li>Auswahl der Berechnungsmethode und der Asr-Rechtsschule</li>
 	<li>Separate manuelle Zeitkorrekturen für jede Berechnungsmethode</li>
 	<li>Wochen- und Monatsansicht</li>
-	<li>Optionaler kurzer Gebetston oder eine eigene Audiodatei</li>
 	<li>Deutsch, Englisch und Türkisch</li>
 	<li>Druckbar mit Strg+P</li>
 </ul>

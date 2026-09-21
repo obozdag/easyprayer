@@ -149,23 +149,6 @@
 				<select id="language-list"></select>
 			</div>
 			<div class="row">
-				<label id="prayer-sound-enabled-label" for="prayer-sound-enabled"></label>
-				<input type="checkbox" id="prayer-sound-enabled">
-			</div>
-			<div class="row">
-				<label id="prayer-sound-list-label" for="prayer-sound-list"></label>
-				<select id="prayer-sound-list"></select>
-			</div>
-			<div class="row">
-				<label></label>
-				<button type="button" class="btn btn-nav" id="test-prayer-sound-btn"></button>
-			</div>
-			<div class="row custom-sound-row" id="custom-sound-row" hidden>
-				<label id="custom-sound-label" for="custom-sound-file"></label>
-				<input type="file" id="custom-sound-file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/x-wav">
-			</div>
-			<p id="sound-message" class="settings-message" role="status" aria-live="polite"></p>
-			<div class="row">
 				<label></label>
 				<button type="button" class="btn btn-nav" id="right-reset-btn"></button>
 			</div>

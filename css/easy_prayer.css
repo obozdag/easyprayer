@@ -324,7 +324,6 @@ h5 {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
 }
 .city-suggestions[hidden],
-.custom-sound-row[hidden],
 .location-empty-state[hidden] {
 	display: none;
 }
@@ -696,6 +695,7 @@ footer a {
 }
 #prayer-table {
 	border-collapse: collapse;
+	table-layout: fixed;
 	width: 100%;
 	max-width: 100%;
 	margin-bottom: 1rem;
@@ -708,6 +708,9 @@ footer a {
 	border-bottom: 2px solid var(--border-color);
 	text-align: right;
 }
+#prayer-table th:first-child {
+	width: 22%;
+}
 #prayer-table td {
 	padding: 8px 2px;
 	vertical-align: top;
@@ -715,11 +718,11 @@ footer a {
 	text-align: right;
 }
 #prayer-table .date-cell {
-	max-width: 100px;
 	text-align: left;
 }
 #prayer-table .next-prayer {
-	font-weight: 600;
+	background-color: color-mix(in srgb, var(--set-color) 22%, transparent);
+	font-weight: 700;
 }
 .day {
 	color: var(--set-color);

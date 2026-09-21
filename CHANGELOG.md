@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.0 - 2026-09-21
+
+- Shortened prayer-time table headings to four characters and made all prayer columns equal in width.
+- Strengthened the next-prayer highlight with a darker background and heavier type.
+- Removed prayer-time sounds, custom audio uploads, and their settings because PWAs cannot reliably play them when inactive.
+
 ## v1.3.4 - 2026-09-18
 
 - Added a navbar theme button with light, dark, and automatic day/night modes.

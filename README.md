@@ -1,4 +1,4 @@
-# Easy Prayer v1.3.4
+# Easy Prayer v1.4.0
 
 Easy Prayer is a progressive web application. It shows exact prayer times.
 
@@ -7,7 +7,6 @@ Easy Prayer is a progressive web application. It shows exact prayer times.
 - Automatic geolocation setting
 - Local city autocomplete and saved cities
 - Worldwide timezone support
-- Optional prayer-time sound alerts and custom sound upload
 - Calculation method selection
 - Per-method manual prayer-time adjustments
 - Asr selection
