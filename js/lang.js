@@ -75,12 +75,12 @@ translations = {
 			'isha'    : 'Yatsı',
 			},
 		'prayer_names_short' : {
-			'fajr'    : 'İmsa',
-			'sunrise' : 'Güne',
+			'fajr'    : 'İmsak',
+			'sunrise' : 'Güneş',
 			'dhuhr'   : 'Öğle',
-			'asr'     : 'İkin',
-			'maghrib' : 'Akşa',
-			'isha'    : 'Yats',
+			'asr'     : 'İkindi',
+			'maghrib' : 'Akşam',
+			'isha'    : 'Yatsı',
 			},
 		'months' : {
 			'0' : 'Oca',

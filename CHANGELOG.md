@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.2 - 2026-09-21
+
+- Restored the natural, full Turkish prayer names while retaining compact English table headings.
+
 ## v1.4.1 - 2026-09-21
 
 - Replaced the next-prayer cell background with bold, underlined time text.
